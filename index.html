@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>David Álvarez | Cybersecurity & IT Operations Specialist</title>
     <meta name="description" content="Especialista en Operaciones IT y Ciberseguridad - SAP, Salesforce, ASIR, Redes y Seguridad">
-    
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -20,14 +19,19 @@
     <nav id="navbar">
         <div class="logo"><span class="bracket">&lt;</span>DA<span class="bracket">/&gt;</span></div>
         <ul class="nav-links">
-            <li><a href="#home">Inicio</a></li>
-            <li><a href="#about">Sobre Mí</a></li>
-            <li><a href="#technical-skills">Skills Técnicas</a></li>
-            <li><a href="#certifications">Certificaciones</a></li>
-            <li><a href="#projects">Proyectos</a></li>
-            <li><a href="#experience">Experiencia</a></li>
-            <li><a href="#contact">Contacto</a></li>
+            <li><a href="#home"             data-i18n="nav-home">Inicio</a></li>
+            <li><a href="#about"            data-i18n="nav-about">Sobre Mí</a></li>
+            <li><a href="#technical-skills" data-i18n="nav-skills">Skills Técnicas</a></li>
+            <li><a href="#certifications"   data-i18n="nav-certs">Certificaciones</a></li>
+            <li><a href="#projects"         data-i18n="nav-projects">Proyectos</a></li>
+            <li><a href="#experience"       data-i18n="nav-exp">Experiencia</a></li>
+            <li><a href="#contact"          data-i18n="nav-contact">Contacto</a></li>
         </ul>
+        <button class="lang-toggle" id="langToggle" aria-label="Switch language">
+            <span id="langES" class="lang-opt active">ES</span>
+            <span class="lang-sep">/</span>
+            <span id="langEN" class="lang-opt">EN</span>
+        </button>
         <button class="menu-toggle"><span></span><span></span><span></span></button>
     </nav>
     
@@ -35,13 +39,17 @@
         <div class="hero-content">
             <h1 class="hero-title" id="heroTitle">DAVID ÁLVAREZ FERNÁNDEZ</h1>
             <h2 class="hero-subtitle"><span class="typed-text"></span><span class="cursor-blink">|</span></h2>
-            <p class="hero-description">Experiencia en operaciones en el sector de consultoría tecnológica, con una sólida base en gestión y mejora de procesos. Actualmente cursando Administración de Sistemas Informáticos en Red (ASIR), ampliando competencias en administración de sistemas y ciberseguridad.</p>
+            <p class="hero-description" data-i18n="hero-desc">Experiencia en operaciones en el sector de consultoría tecnológica, con una sólida base en gestión y mejora de procesos. Actualmente cursando Administración de Sistemas Informáticos en Red (ASIR), ampliando competencias en administración de sistemas y ciberseguridad.</p>
             <div class="hero-buttons">
-                <a href="David_Alvarez_CV.pdf" download class="btn btn-primary magnetic-btn"><i class="fas fa-download"></i> Descargar CV</a>
-                <a href="#contact" class="btn btn-secondary magnetic-btn"><i class="fas fa-envelope"></i> Contactar</a>
+                <a href="David_Alvarez_CV.pdf" download class="btn btn-primary magnetic-btn">
+                    <i class="fas fa-download"></i> <span data-i18n="btn-cv">Descargar CV</span>
+                </a>
+                <a href="#contact" class="btn btn-secondary magnetic-btn">
+                    <i class="fas fa-envelope"></i> <span data-i18n="btn-contact">Contactar</span>
+                </a>
             </div>
             <div class="hero-badges">
-                <div class="badge"><i class="fas fa-shield-alt"></i><span>Administración en sistemas informáticos en Red - Ciberseguridad</span></div>
+                <div class="badge"><i class="fas fa-shield-alt"></i><span data-i18n="badge-1">Administración en sistemas informáticos en Red - Ciberseguridad</span></div>
                 <div class="badge"><i class="fas fa-cogs"></i><span>SAP/Salesforce/Mercury</span></div>
                 <div class="badge"><i class="fas fa-code"></i><span>HTML/CSS/JS/PHP/SQL</span></div>
             </div>
@@ -56,25 +64,27 @@
     
     <section id="about" class="about">
         <div class="container">
-            <h2 class="section-title" data-scramble="01. Sobre Mí"><span class="number">01.</span> Sobre Mí</h2>
+            <h2 class="section-title" data-scramble="01. Sobre Mí" data-scramble-en="01. About Me">
+                <span class="number">01.</span> <span data-i18n="title-about">Sobre Mí</span>
+            </h2>
             <div class="about-content"> 
                 <div class="about-text">
-                    <p>Soy un profesional con experiencia en entornos<span class="highlight"> operativos y empresariales internacionales</span>, actualmente cursando <span class="highlight">CFGS en Administración de Sistemas Informáticos en Red (ASIR)</span> con especialización en <span class="highlight">ciberseguridad</span> (finalización junio 2027).</p>
-                    <p>Compagino mi formación técnica con mi experiencia en <span class="highlight">Sthree Spain</span>, donde trabajé con sistemas empresariales como <span class="highlight">SAP, Salesforce y Mercury,</span> gestionando datos operativos, procesos internos y soporte a equipos, además de colaborar en la formación de nuevas incorporaciones.</p>
-                    <p>Mi experiencia en <span class="highlight"> Estados Unidos </span>me ha permitido desarrollar adaptabilidad, coordinación en entornos multiculturales y mejora de procesos. Mi objetivo es orientar mi carrera hacia el ámbito IT, aportando soluciones tecnológicas eficientes y seguras.</p>
+                    <p data-i18n-html="about-p1">Soy un profesional con experiencia en entornos<span class="highlight"> operativos y empresariales internacionales</span>, actualmente cursando <span class="highlight">CFGS en Administración de Sistemas Informáticos en Red (ASIR)</span> con especialización en <span class="highlight">ciberseguridad</span> (finalización junio 2027).</p>
+                    <p data-i18n-html="about-p2">Compagino mi formación técnica con mi experiencia en <span class="highlight">Sthree Spain</span>, donde trabajé con sistemas empresariales como <span class="highlight">SAP, Salesforce y Mercury,</span> gestionando datos operativos, procesos internos y soporte a equipos, además de colaborar en la formación de nuevas incorporaciones.</p>
+                    <p data-i18n-html="about-p3">Mi experiencia en <span class="highlight"> Estados Unidos </span>me ha permitido desarrollar adaptabilidad, coordinación en entornos multiculturales y mejora de procesos. Mi objetivo es orientar mi carrera hacia el ámbito IT, aportando soluciones tecnológicas eficientes y seguras.</p>
                     <div class="languages-section">
-                        <h3><i class="fas fa-language"></i> Idiomas</h3>
+                        <h3><i class="fas fa-language"></i> <span data-i18n="langs-title">Idiomas</span></h3>
                         <div class="language-bars">
-                            <div class="language-item"><div class="language-header"><span>Español</span><span class="language-level">Nativo</span></div><div class="language-bar"><div class="language-progress" data-width="100"></div></div></div>
-                            <div class="language-item"><div class="language-header"><span>Catalán</span><span class="language-level">Nativo</span></div><div class="language-bar"><div class="language-progress" data-width="100"></div></div></div>
-                            <div class="language-item"><div class="language-header"><span>Inglés</span><span class="language-level">Profesional (C1)</span></div><div class="language-bar"><div class="language-progress" data-width="90"></div></div></div>
+                            <div class="language-item"><div class="language-header"><span data-i18n="lang-es">Español</span><span class="language-level" data-i18n="lang-native">Nativo</span></div><div class="language-bar"><div class="language-progress" data-width="100"></div></div></div>
+                            <div class="language-item"><div class="language-header"><span data-i18n="lang-cat">Catalán</span><span class="language-level" data-i18n="lang-native">Nativo</span></div><div class="language-bar"><div class="language-progress" data-width="100"></div></div></div>
+                            <div class="language-item"><div class="language-header"><span data-i18n="lang-en">Inglés</span><span class="language-level" data-i18n="lang-c1">Profesional (C1)</span></div><div class="language-bar"><div class="language-progress" data-width="90"></div></div></div>
                         </div>
                     </div>
                 </div>
                 <div class="about-stats">
-                    <div class="stat-card glowing-card"><div class="stat-number" data-target="2">0</div><div class="stat-label">Años de Experiencia</div></div>
-                    <div class="stat-card glowing-card"><div class="stat-number" data-target="4">0</div><div class="stat-label">Proyectos Completados</div></div>
-                    <div class="stat-card glowing-card"><div class="stat-number" data-target="3">0</div><div class="stat-label">Tecnologías Dominadas</div></div>
+                    <div class="stat-card glowing-card"><div class="stat-number" data-target="2">0</div><div class="stat-label" data-i18n="stat-exp">Años de Experiencia</div></div>
+                    <div class="stat-card glowing-card"><div class="stat-number" data-target="4">0</div><div class="stat-label" data-i18n="stat-projects">Proyectos Completados</div></div>
+                    <div class="stat-card glowing-card"><div class="stat-number" data-target="3">0</div><div class="stat-label" data-i18n="stat-tech">Tecnologías Dominadas</div></div>
                 </div>
             </div>
         </div>
@@ -82,7 +92,9 @@
     
     <section id="technical-skills" class="technical-skills">
         <div class="container">
-            <h2 class="section-title" data-scramble="02. Habilidades Técnicas"><span class="number">02.</span> Habilidades Técnicas</h2>
+            <h2 class="section-title" data-scramble="02. Habilidades Técnicas" data-scramble-en="02. Technical Skills">
+                <span class="number">02.</span> <span data-i18n="title-skills">Habilidades Técnicas</span>
+            </h2>
             <div class="skills-grid">
                 <div class="skill-item" data-level="85"><div class="skill-ring"><svg viewBox="0 0 100 100" class="progress-svg"><circle class="ring-bg" cx="50" cy="50" r="44"></circle><circle class="ring" cx="50" cy="50" r="44"></circle></svg><i class="fas fa-network-wired"></i></div><div class="skill-info"><h4>Redes TCP/IP</h4><span class="skill-percent">85%</span></div></div>
                 <div class="skill-item" data-level="80"><div class="skill-ring"><svg viewBox="0 0 100 100" class="progress-svg"><circle class="ring-bg" cx="50" cy="50" r="44"></circle><circle class="ring" cx="50" cy="50" r="44"></circle></svg><i class="fas fa-lock"></i></div><div class="skill-info"><h4>Firewalls</h4><span class="skill-percent">80%</span></div></div>
@@ -98,37 +110,41 @@
     
     <section id="certifications" class="certifications">
         <div class="container">
-            <h2 class="section-title" data-scramble="03. Certificaciones"><span class="number">03.</span> Certificaciones</h2>
+            <h2 class="section-title" data-scramble="03. Certificaciones" data-scramble-en="03. Certifications">
+                <span class="number">03.</span> <span data-i18n="title-certs">Certificaciones</span>
+            </h2>
             <div class="certifications-grid">
-                <div class="cert-card cert-reveal"><div class="cert-icon cisco"><i class="fas fa-network-wired"></i></div><h3>CCNA - Introducción a Redes</h3><p class="cert-issuer">Cisco Networking Academy</p><p class="cert-date">70 horas · En Progreso</p><div class="cert-skills"><span>Redes</span><span>TCP/IP</span><span>Routing</span></div></div>
-                <div class="cert-card cert-reveal"><div class="cert-icon cisco"><i class="fas fa-shield-alt"></i></div><h3>Introduction to Cybersecurity</h3><p class="cert-issuer">Cisco Networking Academy</p><p class="cert-date">En Progreso</p><div class="cert-skills"><span>Ciberseguridad</span><span>Amenazas</span></div></div>
-                <div class="cert-card cert-reveal"><div class="cert-icon cisco"><i class="fas fa-server"></i></div><h3>Linux Essentials</h3><p class="cert-issuer">Cisco Networking Academy</p><p class="cert-date">En Progreso</p><div class="cert-skills"><span>Linux</span><span>Terminal</span><span>Bash</span></div></div>
+                <div class="cert-card cert-reveal"><div class="cert-icon cisco"><i class="fas fa-network-wired"></i></div><h3>CCNA - Introducción a Redes</h3><p class="cert-issuer">Cisco Networking Academy</p><p class="cert-date" data-i18n="cert-70h">70 horas · En Progreso</p><div class="cert-skills"><span>Redes</span><span>TCP/IP</span><span>Routing</span></div></div>
+                <div class="cert-card cert-reveal"><div class="cert-icon cisco"><i class="fas fa-shield-alt"></i></div><h3>Introduction to Cybersecurity</h3><p class="cert-issuer">Cisco Networking Academy</p><p class="cert-date" data-i18n="cert-progress">En Progreso</p><div class="cert-skills"><span data-i18n="cert-cyber">Ciberseguridad</span><span data-i18n="cert-threats">Amenazas</span></div></div>
+                <div class="cert-card cert-reveal"><div class="cert-icon cisco"><i class="fas fa-server"></i></div><h3>Linux Essentials</h3><p class="cert-issuer">Cisco Networking Academy</p><p class="cert-date" data-i18n="cert-progress">En Progreso</p><div class="cert-skills"><span>Linux</span><span>Terminal</span><span>Bash</span></div></div>
                 <div class="cert-card cert-reveal"><div class="cert-icon asir"><i class="fas fa-graduation-cap"></i></div><h3>xxxxxxx</h3><p class="cert-issuer">xxxxxxxxxx</p><p class="cert-date">xxxxxxx</p><div class="cert-skills"><span>xxxxxx</span><span>xxxxxxx</span></div></div>
-                <div class="cert-card cert-reveal"><div class="cert-icon cisco"><i class="fas fa-lock"></i></div><h3>Endpoint Security</h3><p class="cert-issuer">Cisco Networking Academy</p><p class="cert-date">En Progreso</p><div class="cert-skills"><span>Seguridad Endpoints</span><span>Protección</span></div></div>
+                <div class="cert-card cert-reveal"><div class="cert-icon cisco"><i class="fas fa-lock"></i></div><h3>Endpoint Security</h3><p class="cert-issuer">Cisco Networking Academy</p><p class="cert-date" data-i18n="cert-progress">En Progreso</p><div class="cert-skills"><span data-i18n="cert-endpoint">Seguridad Endpoints</span><span data-i18n="cert-protection">Protección</span></div></div>
                 <div class="cert-card cert-reveal"><div class="cert-icon university"><i class="fas fa-university"></i></div><h3>xxxxxxx</h3><p class="cert-issuer">xxxxxx</p><p class="cert-date">xxxx</p><div class="cert-skills"><span>xxxxxxx</span></div></div>
                 <div class="cert-card cert-reveal"><div class="cert-icon sap"><i class="fas fa-briefcase"></i></div><h3>xxxxxxx</h3><p class="cert-issuer">xxxxxxxx</p><p class="cert-date">xxxxxxxx</p><div class="cert-skills"><span>xxxxxx</span><span>xxxxxx</span><span>xxxxxxx</span></div></div>
-                <div class="cert-card cert-reveal"><div class="cert-icon cisco"><i class="fas fa-code"></i></div><h3>Python Programming</h3><p class="cert-issuer">Cisco Networking Academy</p><p class="cert-date">En Progreso</p><div class="cert-skills"><span>Python</span><span>Scripting</span></div></div>
+                <div class="cert-card cert-reveal"><div class="cert-icon cisco"><i class="fas fa-code"></i></div><h3>Python Programming</h3><p class="cert-issuer">Cisco Networking Academy</p><p class="cert-date" data-i18n="cert-progress">En Progreso</p><div class="cert-skills"><span>Python</span><span>Scripting</span></div></div>
             </div>
         </div>
     </section>
     
     <section id="projects" class="projects">
         <div class="container">
-            <h2 class="section-title" data-scramble="04. Proyectos Destacados"><span class="number">04.</span> Proyectos Destacados</h2>
+            <h2 class="section-title" data-scramble="04. Proyectos Destacados" data-scramble-en="04. Featured Projects">
+                <span class="number">04.</span> <span data-i18n="title-projects">Proyectos Destacados</span>
+            </h2>
             <div class="projects-filter">
-                <button class="filter-btn active" data-filter="all"><span>Todos</span></button>
-                <button class="filter-btn" data-filter="web"><span>Web Development</span></button>
-                <button class="filter-btn" data-filter="security"><span>Ciberseguridad</span></button>
-                <button class="filter-btn" data-filter="automation"><span>Automatización</span></button>
-                <button class="filter-btn" data-filter="network"><span>Redes</span></button>
+                <button class="filter-btn active" data-filter="all"><span data-i18n="filter-all">Todos</span></button>
+                <button class="filter-btn" data-filter="web"><span data-i18n="filter-web">Web Development</span></button>
+                <button class="filter-btn" data-filter="security"><span data-i18n="filter-security">Ciberseguridad</span></button>
+                <button class="filter-btn" data-filter="automation"><span data-i18n="filter-automation">Automatización</span></button>
+                <button class="filter-btn" data-filter="network"><span data-i18n="filter-network">Redes</span></button>
             </div>
             <div class="projects-grid">
-                <div class="project-card" data-category="web"><div class="project-image"><div class="project-placeholder"><i class="fas fa-code"></i></div><div class="project-overlay"><button class="project-details-btn" data-project="0"><i class="fas fa-info-circle"></i></button><a href="https://github.com/misteralva/Web-StarterKit" target="_blank" class="project-github"><i class="fab fa-github"></i></a></div></div><div class="project-content"><div class="project-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div><h3>Web StarterKit</h3><p>Kit de inicio para proyectos web con estructura modular y mejores prácticas de desarrollo frontend.</p></div></div>
-                <div class="project-card" data-category="web"><div class="project-image"><div class="project-placeholder"><i class="fas fa-magic"></i></div><div class="project-overlay"><button class="project-details-btn" data-project="1"><i class="fas fa-info-circle"></i></button><a href="https://github.com/misteralva/GSAP-Actividad" target="_blank" class="project-github"><i class="fab fa-github"></i></a></div></div><div class="project-content"><div class="project-tags"><span>GSAP</span><span>JavaScript</span><span>Animaciones</span></div><h3>GSAP Actividad</h3><p>Proyecto académico implementando animaciones avanzadas con GSAP y efectos de scroll interactivos.</p></div></div>
-                <div class="project-card" data-category="web"><div class="project-image"><div class="project-placeholder"><i class="fas fa-rocket"></i></div><div class="project-overlay"><button class="project-details-btn" data-project="2"><i class="fas fa-info-circle"></i></button><a href="https://github.com/misteralva/GSAP-Practica" target="_blank" class="project-github"><i class="fab fa-github"></i></a></div></div><div class="project-content"><div class="project-tags"><span>GSAP</span><span>ScrollTrigger</span><span>Web Design</span></div><h3>GSAP Práctica</h3><p>Ejercicios prácticos de animación web con GSAP, explorando diferentes técnicas y efectos visuales.</p></div></div>
-                <div class="project-card" data-category="security"><div class="project-image"><div class="project-placeholder future"><i class="fas fa-shield-alt"></i><span class="coming-soon">Próximamente</span></div><div class="project-overlay"><button class="project-details-btn" data-project="3"><i class="fas fa-info-circle"></i></button></div></div><div class="project-content"><div class="project-tags"><span>Python</span><span>Nmap</span><span>Security</span></div><h3>Network Security Scanner</h3><p>Herramienta de escaneo de vulnerabilidades con dashboard interactivo para auditorías de red.</p></div></div>
-                <div class="project-card" data-category="network"><div class="project-image"><div class="project-placeholder future"><i class="fas fa-network-wired"></i><span class="coming-soon">Próximamente</span></div><div class="project-overlay"><button class="project-details-btn" data-project="4"><i class="fas fa-info-circle"></i></button></div></div><div class="project-content"><div class="project-tags"><span>Linux</span><span>iptables</span><span>Monitoring</span></div><h3>Firewall Monitor Dashboard</h3><p>Sistema de monitorización en tiempo real para reglas de firewall y tráfico de red.</p></div></div>
-                <div class="project-card" data-category="automation"><div class="project-image"><div class="project-placeholder future"><i class="fas fa-terminal"></i><span class="coming-soon">Próximamente</span></div><div class="project-overlay"><button class="project-details-btn" data-project="5"><i class="fas fa-info-circle"></i></button></div></div><div class="project-content"><div class="project-tags"><span>Python</span><span>Bash</span><span>DevOps</span></div><h3>System Automation Suite</h3><p>Colección de scripts para automatización de tareas de administración de sistemas Linux/Windows.</p></div></div>
+                <div class="project-card" data-category="web"><div class="project-image"><div class="project-placeholder"><i class="fas fa-code"></i></div><div class="project-overlay"><button class="project-details-btn" data-project="0"><i class="fas fa-info-circle"></i></button><a href="https://github.com/misteralva/Web-StarterKit" target="_blank" class="project-github"><i class="fab fa-github"></i></a></div></div><div class="project-content"><div class="project-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div><h3>Web StarterKit</h3><p data-i18n="proj-0-desc">Kit de inicio para proyectos web con estructura modular y mejores prácticas de desarrollo frontend.</p></div></div>
+                <div class="project-card" data-category="web"><div class="project-image"><div class="project-placeholder"><i class="fas fa-magic"></i></div><div class="project-overlay"><button class="project-details-btn" data-project="1"><i class="fas fa-info-circle"></i></button><a href="https://github.com/misteralva/GSAP-Actividad" target="_blank" class="project-github"><i class="fab fa-github"></i></a></div></div><div class="project-content"><div class="project-tags"><span>GSAP</span><span>JavaScript</span><span data-i18n="tag-animations">Animaciones</span></div><h3>GSAP Actividad</h3><p data-i18n="proj-1-desc">Proyecto académico implementando animaciones avanzadas con GSAP y efectos de scroll interactivos.</p></div></div>
+                <div class="project-card" data-category="web"><div class="project-image"><div class="project-placeholder"><i class="fas fa-rocket"></i></div><div class="project-overlay"><button class="project-details-btn" data-project="2"><i class="fas fa-info-circle"></i></button><a href="https://github.com/misteralva/GSAP-Practica" target="_blank" class="project-github"><i class="fab fa-github"></i></a></div></div><div class="project-content"><div class="project-tags"><span>GSAP</span><span>ScrollTrigger</span><span>Web Design</span></div><h3>GSAP Práctica</h3><p data-i18n="proj-2-desc">Ejercicios prácticos de animación web con GSAP, explorando diferentes técnicas y efectos visuales.</p></div></div>
+                <div class="project-card" data-category="security"><div class="project-image"><div class="project-placeholder future"><i class="fas fa-shield-alt"></i><span class="coming-soon" data-i18n="coming-soon">Próximamente</span></div><div class="project-overlay"><button class="project-details-btn" data-project="3"><i class="fas fa-info-circle"></i></button></div></div><div class="project-content"><div class="project-tags"><span>Python</span><span>Nmap</span><span>Security</span></div><h3>Network Security Scanner</h3><p data-i18n="proj-3-desc">Herramienta de escaneo de vulnerabilidades con dashboard interactivo para auditorías de red.</p></div></div>
+                <div class="project-card" data-category="network"><div class="project-image"><div class="project-placeholder future"><i class="fas fa-network-wired"></i><span class="coming-soon" data-i18n="coming-soon">Próximamente</span></div><div class="project-overlay"><button class="project-details-btn" data-project="4"><i class="fas fa-info-circle"></i></button></div></div><div class="project-content"><div class="project-tags"><span>Linux</span><span>iptables</span><span>Monitoring</span></div><h3>Firewall Monitor Dashboard</h3><p data-i18n="proj-4-desc">Sistema de monitorización en tiempo real para reglas de firewall y tráfico de red.</p></div></div>
+                <div class="project-card" data-category="automation"><div class="project-image"><div class="project-placeholder future"><i class="fas fa-terminal"></i><span class="coming-soon" data-i18n="coming-soon">Próximamente</span></div><div class="project-overlay"><button class="project-details-btn" data-project="5"><i class="fas fa-info-circle"></i></button></div></div><div class="project-content"><div class="project-tags"><span>Python</span><span>Bash</span><span>DevOps</span></div><h3>System Automation Suite</h3><p data-i18n="proj-5-desc">Colección de scripts para automatización de tareas de administración de sistemas Linux/Windows.</p></div></div>
             </div>
         </div>
     </section>
@@ -142,12 +158,12 @@
                 <div class="modal-info">
                     <h2 class="modal-title">Nombre del Proyecto</h2>
                     <div class="modal-tags"></div>
-                    <div class="modal-description"><h3><i class="fas fa-info-circle"></i> Descripción</h3><p class="modal-text"></p></div>
-                    <div class="modal-features"><h3><i class="fas fa-check-circle"></i> Características</h3><ul class="modal-features-list"></ul></div>
-                    <div class="modal-tech"><h3><i class="fas fa-tools"></i> Tecnologías</h3><div class="modal-tech-list"></div></div>
+                    <div class="modal-description"><h3><i class="fas fa-info-circle"></i> <span data-i18n="modal-desc">Descripción</span></h3><p class="modal-text"></p></div>
+                    <div class="modal-features"><h3><i class="fas fa-check-circle"></i> <span data-i18n="modal-feat">Características</span></h3><ul class="modal-features-list"></ul></div>
+                    <div class="modal-tech"><h3><i class="fas fa-tools"></i> <span data-i18n="modal-tech">Tecnologías</span></h3><div class="modal-tech-list"></div></div>
                     <div class="modal-links">
-                        <a href="#" class="modal-link github-link" target="_blank"><i class="fab fa-github"></i> Ver en GitHub</a>
-                        <a href="#" class="modal-link demo-link" target="_blank" style="display: none;"><i class="fas fa-external-link-alt"></i> Ver Demo</a>
+                        <a href="#" class="modal-link github-link" target="_blank"><i class="fab fa-github"></i> <span data-i18n="modal-github">Ver en GitHub</span></a>
+                        <a href="#" class="modal-link demo-link" target="_blank" style="display: none;"><i class="fas fa-external-link-alt"></i> <span data-i18n="modal-demo">Ver Demo</span></a>
                     </div>
                 </div>
             </div>
@@ -156,24 +172,70 @@
     
     <section id="experience" class="experience">
         <div class="container">
-            <h2 class="section-title" data-scramble="05. Experiencia Profesional"><span class="number">05.</span> Experiencia Profesional</h2>
+            <h2 class="section-title" data-scramble="05. Experiencia Profesional" data-scramble-en="05. Professional Experience">
+                <span class="number">05.</span> <span data-i18n="title-exp">Experiencia Profesional</span>
+            </h2>
             <div class="timeline">
-                <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">Jul 2023 - Sep 2025</div><div class="timeline-content"><h3>Operations Specialist Spain</h3><h4>Sthree · Barcelona</h4><ul><li>Gestión de operaciones: formación de nuevas incorporaciones y soporte ante incidencias</li><li>Análisis y mejora de procesos operativos, coordinando con distintos departamentos</li><li>Gestión de clientes, pagos y órdenes de compra mediante SAP</li><li>Administración de contratos, placements y datos operativos (SAP, Salesforce, Mercury)</li><li>Optimización de reporting y automatización de procesos con Excel avanzado</li></ul><div class="job-tags"><span>SAP</span><span>Salesforce</span><span>Mercury</span><span>Excel</span><span>Gestión de Operaciones</span></div></div></div>
-                <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">Sep 2022 - May 2023</div><div class="timeline-content"><h3>Player Relation Manager</h3><h4>Chronis Elite · Long Island, NY</h4><ul><li>Reclutamiento de jugadores de nivel academia</li><li>Gestión y coordinación con torneos de élite y academias europeas</li><li>Planificación de viajes, entrenamientos y programas de desarrollo</li><li>Coordinación logística internacional de eventos deportivos</li></ul><div class="job-tags"><span>Gestión de Proyectos</span><span>Logística Internacional</span><span>Coordinación</span></div></div></div>
-                <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">Jun 2022 - May 2023</div><div class="timeline-content"><h3>Project Manager Assistant</h3><h4>DV7 Soccer · Astoria, NY</h4><ul><li>Implementación y supervisión de la metodología DV7 en la academia de Nueva York</li><li>Coordinación institucional con ligas, federaciones y organismos futbolísticos</li><li>Gestión de eventos y proyectos especiales: campus internacionales y becas universitarias</li></ul><div class="job-tags"><span>Project Management</span><span>Coordinación Institucional</span><span>Eventos</span></div></div></div>
-                <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">Ene 2022 - May 2022</div><div class="timeline-content"><h3>Internship - Operations Trainee</h3><h4>Carolina Esports Hub · Charlotte, NC</h4><ul><li>Soporte en producción de eventos esports y transmisiones en Twitch</li><li>Optimización de calidad A/V utilizando OBS Studio, NDI, iluminación y audio profesional</li><li>Instalación y configuración de hardware/software: PCs gaming, sistemas anti-cheat</li><li>Soporte técnico en eventos en vivo</li></ul><div class="job-tags"><span>OBS Studio</span><span>NDI</span><span>A/V Production</span><span>Soporte Técnico</span></div></div></div>
+                <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">Jul 2023 - Sep 2025</div><div class="timeline-content">
+                    <h3 data-i18n="exp-1-title">Operations Specialist Spain</h3>
+                    <h4>Sthree · Barcelona</h4>
+                    <ul>
+                        <li data-i18n="exp-1-li1">Gestión de operaciones: formación de nuevas incorporaciones y soporte ante incidencias</li>
+                        <li data-i18n="exp-1-li2">Análisis y mejora de procesos operativos, coordinando con distintos departamentos</li>
+                        <li data-i18n="exp-1-li3">Gestión de clientes, pagos y órdenes de compra mediante SAP</li>
+                        <li data-i18n="exp-1-li4">Administración de contratos, placements y datos operativos (SAP, Salesforce, Mercury)</li>
+                        <li data-i18n="exp-1-li5">Optimización de reporting y automatización de procesos con Excel avanzado</li>
+                    </ul>
+                    <div class="job-tags"><span>SAP</span><span>Salesforce</span><span>Mercury</span><span>Excel</span><span data-i18n="tag-ops">Gestión de Operaciones</span></div>
+                </div></div>
+
+                <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">Sep 2022 - May 2023</div><div class="timeline-content">
+                    <h3 data-i18n="exp-2-title">Player Relation Manager</h3>
+                    <h4>Chronis Elite · Long Island, NY</h4>
+                    <ul>
+                        <li data-i18n="exp-2-li1">Reclutamiento de jugadores de nivel academia</li>
+                        <li data-i18n="exp-2-li2">Gestión y coordinación con torneos de élite y academias europeas</li>
+                        <li data-i18n="exp-2-li3">Planificación de viajes, entrenamientos y programas de desarrollo</li>
+                        <li data-i18n="exp-2-li4">Coordinación logística internacional de eventos deportivos</li>
+                    </ul>
+                    <div class="job-tags"><span data-i18n="tag-pm">Gestión de Proyectos</span><span data-i18n="tag-logistics">Logística Internacional</span><span data-i18n="tag-coord">Coordinación</span></div>
+                </div></div>
+
+                <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">Jun 2022 - May 2023</div><div class="timeline-content">
+                    <h3 data-i18n="exp-3-title">Project Manager Assistant</h3>
+                    <h4>DV7 Soccer · Astoria, NY</h4>
+                    <ul>
+                        <li data-i18n="exp-3-li1">Implementación y supervisión de la metodología DV7 en la academia de Nueva York</li>
+                        <li data-i18n="exp-3-li2">Coordinación institucional con ligas, federaciones y organismos futbolísticos</li>
+                        <li data-i18n="exp-3-li3">Gestión de eventos y proyectos especiales: campus internacionales y becas universitarias</li>
+                    </ul>
+                    <div class="job-tags"><span>Project Management</span><span data-i18n="tag-inst">Coordinación Institucional</span><span data-i18n="tag-events">Eventos</span></div>
+                </div></div>
+
+                <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">Ene 2022 - May 2022</div><div class="timeline-content">
+                    <h3 data-i18n="exp-4-title">Internship - Operations Trainee</h3>
+                    <h4>Carolina Esports Hub · Charlotte, NC</h4>
+                    <ul>
+                        <li data-i18n="exp-4-li1">Soporte en producción de eventos esports y transmisiones en Twitch</li>
+                        <li data-i18n="exp-4-li2">Optimización de calidad A/V utilizando OBS Studio, NDI, iluminación y audio profesional</li>
+                        <li data-i18n="exp-4-li3">Instalación y configuración de hardware/software: PCs gaming, sistemas anti-cheat</li>
+                        <li data-i18n="exp-4-li4">Soporte técnico en eventos en vivo</li>
+                    </ul>
+                    <div class="job-tags"><span>OBS Studio</span><span>NDI</span><span>A/V Production</span><span data-i18n="tag-techsupport">Soporte Técnico</span></div>
+                </div></div>
             </div>
         </div>
     </section>
     
-    <!-- Contacto -->
     <section id="contact" class="contact">
         <div class="container">
-            <h2 class="section-title" data-scramble="06. Contacto"><span class="number">06.</span> Contacto</h2>
+            <h2 class="section-title" data-scramble="06. Contacto" data-scramble-en="06. Contact">
+                <span class="number">06.</span> <span data-i18n="title-contact">Contacto</span>
+            </h2>
             <div class="contact-content">
                 <div class="contact-info">
-                    <h3>¿Interesad@?</h3>
-                    <p>Disponible para posiciones junior en IT, soporte técnico o ciberseguridad. Interesado en entornos donde pueda aprender, asumir responsabilidades progresivamente y contribuir a la mejora de sistemas y procesos.</p>
+                    <h3 data-i18n="contact-title">¿Interesad@?</h3>
+                    <p data-i18n="contact-desc">Disponible para posiciones junior en IT, soporte técnico o ciberseguridad. Interesado en entornos donde pueda aprender, asumir responsabilidades progresivamente y contribuir a la mejora de sistemas y procesos.</p>
                     <div class="contact-details">
                         <div class="contact-item"><i class="fas fa-envelope"></i><a href="mailto:imdavidalvarez@gmail.com">imdavidalvarez@gmail.com</a></div>
                         <div class="contact-item"><i class="fas fa-phone"></i><a href="tel:+34663725311">xxxxxxxxx</a></div>
@@ -185,41 +247,28 @@
                         <a href="mailto:imdavidalvarez@gmail.com" class="social-link magnetic-btn"><i class="fas fa-envelope"></i></a>
                     </div>
                 </div>
-
-                <!-- ===== FORMULARIO FORMSPREE ===== ===== -->
                 <form class="contact-form" id="contactForm" novalidate>
-
                     <div class="form-group">
-                        <input type="text" name="name" id="inputName"
-                               placeholder="Tu nombre" required maxlength="100" autocomplete="name">
+                        <input type="text" name="name" id="inputName" data-i18n-placeholder="form-name" placeholder="Tu nombre" required maxlength="100" autocomplete="name">
                         <span class="input-border"></span>
                         <span class="field-error" id="errName"></span>
                     </div>
-
                     <div class="form-group">
-                        <input type="email" name="email" id="inputEmail"
-                               placeholder="Tu email" required maxlength="254" autocomplete="email">
+                        <input type="email" name="email" id="inputEmail" data-i18n-placeholder="form-email" placeholder="Tu email" required maxlength="254" autocomplete="email">
                         <span class="input-border"></span>
                         <span class="field-error" id="errEmail"></span>
                     </div>
-
                     <div class="form-group">
-                        <textarea name="message" id="inputMessage"
-                                  rows="5" placeholder="Tu mensaje" required maxlength="5000"></textarea>
+                        <textarea name="message" id="inputMessage" data-i18n-placeholder="form-message" rows="5" placeholder="Tu mensaje" required maxlength="5000"></textarea>
                         <span class="input-border"></span>
                         <span class="field-error" id="errMessage"></span>
                         <span class="char-counter" id="charCounter">0 / 5000</span>
                     </div>
-
                     <div class="form-status" id="formStatus" role="alert" aria-live="polite"></div>
-
                     <button type="submit" class="btn btn-primary magnetic-btn" id="submitBtn">
-                        Enviar Mensaje <i class="fas fa-paper-plane"></i>
+                        <span data-i18n="form-submit">Enviar Mensaje</span> <i class="fas fa-paper-plane"></i>
                     </button>
-
                 </form>
-                <!-- ===== FIN FORMULARIO ===== -->
-
             </div>
         </div>
     </section>
@@ -239,4 +288,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-
