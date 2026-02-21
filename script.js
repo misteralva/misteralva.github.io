@@ -413,7 +413,10 @@ function openModal(projectId) {
     icon.className = project.tags[0] === 'Python' ? 'fab fa-python' : project.tags[0] === 'GSAP' ? 'fas fa-magic' : 'fas fa-code';
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
-    gsap.from('.modal-content', { scale: 0.8, opacity: 0, duration: 0.3, ease: 'back.out(1.4)' });
+    gsap.fromTo('.modal-content', 
+    { scale: 0.8, opacity: 0 }, 
+    { scale: 1, opacity: 1, duration: 0.3, ease: 'back.out(1.4)' }
+);
 }
 
 function closeModal() {
@@ -607,3 +610,4 @@ if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
 // ========== CONSOLE ==========
 console.log('%c🛡️ David Álvarez - Cybersecurity Portfolio', 'font-size: 20px; font-weight: bold; color: #00ff88;');
 console.log('%c📧 imdavidalvarez@gmail.com', 'font-size: 14px; color: #ff0080; font-weight: bold;');
+
