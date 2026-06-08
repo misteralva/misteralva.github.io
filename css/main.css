@@ -1,4 +1,4 @@
-﻿
+
 :root {
   --navy:   #09090f;
   --navy2:  #111116;
@@ -726,6 +726,16 @@ body:not(:hover) #cur { opacity:0 }
 .di:hover .di-icon { background:var(--card); color:var(--acc); border-color:var(--bdr) }
 .di.active .di-icon { color:var(--acc); border-color:rgba(255,255,255,.25) }
 
+#dock-projects-link { display:none }
+
+.di-icon-kali {
+  background: #0f1620;
+  border-color: rgba(48,161,78,.3);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'%3E%3Crect width='50' height='50' rx='10' fill='%230f1620'/%3E%3Ctext x='5' y='34' font-family='monospace' font-size='22' fill='%2330a14e'%3E%3E_%3C/text%3E%3C/svg%3E");
+  background-size: cover;
+}
+#dock-projects-link:hover .di-icon-kali { border-color:rgba(48,161,78,.7); }
+
 .di-dot {
   width:4px; height:4px; border-radius:50%;
   background:var(--acc); opacity:0;
@@ -1184,13 +1194,22 @@ body:not(:hover) #cur { opacity:0 }
 }
 
 @media (max-width:768px) {
+  #dock-projects-link { display:flex }
   #gl      { display:none }
   #aurora  { display:none }
-  #desktop-bg-img.on { opacity:.55 !important }
+  #desktop-bg-img.on { opacity:.45 !important }
 
-  #desk-hero { left:50%; bottom:128px; transform:translateX(-50%); text-align:center; width:92vw }
-  .dh-name { font-size:clamp(2rem,12vw,4.5rem) }
-  .dh-tag { font-size:.52rem; margin-bottom:10px }
+  /* Mobile gradient behind everything */
+  #desktop::before {
+    content:'';
+    position:absolute; inset:0; z-index:0; pointer-events:none;
+    background: radial-gradient(ellipse at 50% 60%, rgba(100,255,218,.06) 0%, transparent 70%),
+                radial-gradient(ellipse at 80% 20%, rgba(54,123,240,.07) 0%, transparent 55%);
+  }
+
+  #desk-hero { left:50%; bottom:140px; transform:translateX(-50%); text-align:center; width:92vw }
+  .dh-name { font-size:clamp(2.2rem,11vw,4rem) }
+  .dh-tag { font-size:.54rem; margin-bottom:10px; letter-spacing:.08em }
 
   #menubar { padding:0 10px }
   .mb-nav { display:none }
@@ -1198,8 +1217,9 @@ body:not(:hover) #cur { opacity:0 }
   .mb-sp-btn { display:flex }
   .mb-lang-btn { display:flex }
 
-  #dock { padding:6px 8px; gap:4px; bottom:12px; border-radius:16px }
-  .di-icon { width:44px; height:44px; border-radius:12px; font-size:1rem }
+  #dock { padding:5px 6px; gap:3px; bottom:12px; border-radius:16px; max-width:calc(100vw - 16px); overflow-x:auto; scrollbar-width:none }
+  #dock::-webkit-scrollbar { display:none }
+  .di-icon { width:42px; height:42px; border-radius:11px; font-size:.95rem }
   .di-label { display:none }
   .di:hover { transform:none }
 
@@ -2018,9 +2038,7 @@ body:not(:hover) #cur { opacity:0 }
   justify-content: center;
   padding: 24px;
 }
-@media (max-width: 900px) {
-  #mobile-overlay { display: flex; }
-}
+/* mobile-overlay removed */
 #mobile-overlay.mob-hidden { display: none !important; }
 .mob-wrap {
   width: 100%;
