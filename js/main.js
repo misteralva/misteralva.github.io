@@ -1,4 +1,4 @@
-﻿import { initScene } from './scene.js';
+import { initScene } from './scene.js';
 
 window._bootTime = Date.now();
 window._lang     = localStorage.getItem('da-lang') || 'en';
@@ -309,6 +309,13 @@ function initSpotlight() {
 }
 
 function runLoader(cb) {
+  // Mobile: skip loader entirely, go straight to desktop
+  if (window.matchMedia('(max-width:768px)').matches || window.matchMedia('(pointer:coarse)').matches) {
+    const lEl = document.getElementById('loader');
+    if (lEl) lEl.style.display = 'none';
+    cb();
+    return;
+  }
   if (sessionStorage.getItem('da-skip-loader')) {
     sessionStorage.removeItem('da-skip-loader');
     const lEl = document.getElementById('loader');
@@ -1853,6 +1860,7 @@ function initForm() {
 
 const LC = { JavaScript:'#e8c832', HTML:'#d94020', CSS:'#6a4c9c', Python:'#2e6da4', TypeScript:'#2b6cb0', Shell:'#5aad2e', Vue:'#42b883', React:'#61dafb', PHP:'#7b7fb5', Ruby:'#cc342d', Go:'#00acd7', Rust:'#dea584' };
 const FB = [
+  { name:'CV-Template',     description:'Personal portfolio/CV template built with HTML, CSS and JavaScript. Based on the misteralva.github.io design.', html_url:'https://github.com/misteralva/CV-Template', language:'JavaScript', stargazers_count:0, topics:['html','css','js','portfolio'], homepage:null },
   { name:'Web-StarterKit',  description:'Modular web starter kit with frontend best practices and clean project structure.',     html_url:'https://github.com/misteralva/Web-StarterKit',  language:'HTML',       stargazers_count:0, topics:['html','css','js'],       homepage:null },
   { name:'GSAP-Actividad',  description:'Advanced GSAP animations, scroll effects, timeline sequences and smooth transitions.', html_url:'https://github.com/misteralva/GSAP-Actividad',  language:'JavaScript', stargazers_count:0, topics:['gsap','scroll'],         homepage:null },
   { name:'GSAP-Practica',   description:'Motion design with GSAP: TextPlugin, morphSVG, staggered animations and visual effects.', html_url:'https://github.com/misteralva/GSAP-Practica', language:'JavaScript', stargazers_count:0, topics:['gsap','animation'],      homepage:null },
