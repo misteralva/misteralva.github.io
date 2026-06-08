@@ -1,4 +1,4 @@
-﻿
+
 
 window.goToDesktop = function() {
   sessionStorage.setItem('da-skip-loader', '1');
@@ -1003,6 +1003,7 @@ async function openTerminal(repoIdx) {
 
   
   inp.addEventListener('keydown', async e => {
+    if (!e.ctrlKey && !e.altKey && !e.metaKey) _playKeyClick();
     if (e.key === 'ArrowUp') {
       e.preventDefault();
       if (histIdx2 < cmdHistory.length - 1) inp.value = cmdHistory[++histIdx2];
@@ -1016,7 +1017,7 @@ async function openTerminal(repoIdx) {
     if (e.key === 'Tab') {
       e.preventDefault();
       const v = inp.value.trim(); if (!v) return;
-      const CMDS = ['cat','clear','docker','echo','exit','git','help','history','hostname','id','ifconfig','ls','man','neofetch','nmap','note','ping','ps','pwd','ssh','sudo','traceroute','uname','uptime','whoami'];
+      const CMDS = ['cat','clear','docker','echo','exit','git','help','history','hostname','id','ifconfig','ls','man','neofetch','nmap','note','ping','ps','pwd','sound','ssh','sudo','traceroute','uname','uptime','whoami'];
       const m = CMDS.find(c => c.startsWith(v));
       if (m) inp.value = m + ' ';
       return;
@@ -1454,6 +1455,18 @@ async function openTerminal(repoIdx) {
         ln(`<span style="color:${ERR};">note: unknown subcommand '${esc(sub)}'</span>`);
         ln(`<span style="color:${DIM};">Usage: note [add|ls|rm|clear|help]</span>`);
       }
+    } else if (c0 === 'sound') {
+      const arg = pts[1];
+      if (arg === 'on') {
+        _soundEnabled = true; localStorage.setItem('da-kterm-sound','1');
+        ln(`<span style="color:${G};">✓</span> Keyboard sound <span style="color:#e6edf3;">enabled</span>`);
+      } else if (arg === 'off') {
+        _soundEnabled = false; localStorage.setItem('da-kterm-sound','0');
+        ln(`<span style="color:${G};">✓</span> Keyboard sound <span style="color:${DIM};">disabled</span>`);
+      } else {
+        ln(`sound: <span style="color:#e6edf3;">${_soundEnabled ? 'on' : 'off'}</span>`);
+        ln(`<span style="color:${DIM};">Usage: sound [on|off]</span>`);
+      }
     } else if (c0 === 'sudo') {
       ln(`[sudo] password for david: `);
       ln(`<span style="color:${ERR};">Sorry, try again.</span>`);
@@ -1633,6 +1646,29 @@ function initContextMenu() {
   });
 }
 
+let _sfxAC = null;
+let _soundEnabled = localStorage.getItem('da-kterm-sound') === '1';
+
+function _playKeyClick() {
+  if (!_soundEnabled) return;
+  try {
+    if (!_sfxAC) _sfxAC = new (window.AudioContext || window.webkitAudioContext)();
+    const ac  = _sfxAC;
+    if (ac.state === 'suspended') ac.resume();
+    const dur = 0.042;
+    const buf = ac.createBuffer(1, Math.ceil(ac.sampleRate * dur), ac.sampleRate);
+    const d   = buf.getChannelData(0);
+    for (let i = 0; i < d.length; i++) {
+      d[i] = (Math.random() * 2 - 1) * Math.exp(-i / (d.length * 0.09));
+    }
+    const src  = ac.createBufferSource(); src.buffer = buf;
+    const filt = ac.createBiquadFilter(); filt.type = 'bandpass'; filt.frequency.value = 1300; filt.Q.value = 0.7;
+    const gain = ac.createGain(); gain.gain.value = 0.055;
+    src.connect(filt); filt.connect(gain); gain.connect(ac.destination);
+    src.start(); src.stop(ac.currentTime + dur);
+  } catch {}
+}
+
 const _noteManager = (() => {
   const STORE = 'da-sticky-notes';
   let _notes = [];
@@ -1746,6 +1782,7 @@ const _MAN = {
   uptime:  {s:1,d:'tell how long the system has been running',syn:'uptime [options]',opts:['Displays current time, how long the system has been running,','how many users are currently logged on, and the load averages.'],auth:'Larry Greenfield'},
   whoami:  {s:1,d:'print effective userid',syn:'whoami [OPTION]...',opts:['Print the user name associated with the current effective user ID.'],auth:'Richard Mlynarik and David MacKenzie'},
   note:    {s:1,d:'create and manage sticky notes on the Kali desktop',syn:'note [add|ls|rm|clear] [args]',opts:['add "text"   create a new sticky note','ls           list all notes','rm <id>      remove note by id','clear        remove all notes'],auth:'DA.OS Project'},
+  sound:   {s:1,d:'toggle mechanical keyboard sound in the terminal',syn:'sound [on|off]',opts:['on    enable keyboard click sound','off   disable keyboard click sound','(no arg)   show current status'],auth:'DA.OS Project'},
 };
 function _manPage(cmd, G, DIM) {
   const p = _MAN[cmd.toLowerCase()];
@@ -2010,6 +2047,7 @@ function initTermPanel() {
   }
 
   inp.addEventListener('keydown', async e => {
+    if (!e.ctrlKey && !e.altKey && !e.metaKey) _playKeyClick();
     if (e.key === 'ArrowUp') {
       e.preventDefault();
       if (_ktermHistIdx < _ktermHistory.length - 1) inp.value = _ktermHistory[++_ktermHistIdx];
@@ -2023,7 +2061,7 @@ function initTermPanel() {
     if (e.key === 'Tab') {
       e.preventDefault();
       const v = inp.value.trim(); if (!v) return;
-      const CMDS = ['cat','clear','docker','echo','exit','git','help','history','hostname','id','ifconfig','ls','man','neofetch','nmap','note','ping','ps','pwd','ssh','sudo','traceroute','uname','uptime','whoami'];
+      const CMDS = ['cat','clear','docker','echo','exit','git','help','history','hostname','id','ifconfig','ls','man','neofetch','nmap','note','ping','ps','pwd','sound','ssh','sudo','traceroute','uname','uptime','whoami'];
       const m = CMDS.find(c => c.startsWith(v));
       if (m) inp.value = m + ' ';
       return;
@@ -2356,6 +2394,20 @@ function initTermPanel() {
       } else {
         ln(`<span style="color:${ERR}">note: unknown subcommand '${esc(sub)}'</span>`);
         ln(`<span style="color:${DIM}">Usage: note [add|ls|rm|clear|help]</span>`);
+      }
+      return;
+    }
+    if (c0 === 'sound') {
+      const arg = pts[1];
+      if (arg === 'on') {
+        _soundEnabled = true; localStorage.setItem('da-kterm-sound','1');
+        ln(`<span style="color:${G};">✓</span> Keyboard sound <span style="color:#e6edf3;">enabled</span>`);
+      } else if (arg === 'off') {
+        _soundEnabled = false; localStorage.setItem('da-kterm-sound','0');
+        ln(`<span style="color:${G};">✓</span> Keyboard sound <span style="color:${DIM};">disabled</span>`);
+      } else {
+        ln(`sound: <span style="color:#e6edf3;">${_soundEnabled ? 'on' : 'off'}</span>`);
+        ln(`<span style="color:${DIM}">Usage: sound [on|off]</span>`);
       }
       return;
     }
