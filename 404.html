@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — DA.OS</title>
+  <link rel="canonical" href="https://misteralva.github.io/">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%2309090f'/><text x='3' y='25' font-family='Georgia,serif' font-size='22' font-style='italic' fill='%23ffffff'>DA</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Syne:wght@800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
+    html, body { width: 100%; height: 100%; overflow: hidden }
+    body {
+      background: #09090f;
+      color: #e8e6f0;
+      font-family: 'JetBrains Mono', monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      padding: 24px;
+    }
+
+    .terminal {
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .t-bar {
+      background: #1c1c24;
+      border-radius: 10px 10px 0 0;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      border: 1px solid rgba(226,232,240,.1);
+      border-bottom: none;
+    }
+    .t-dot { width: 12px; height: 12px; border-radius: 50% }
+    .t-dot.r { background: #ff5f57 }
+    .t-dot.y { background: #febc2e }
+    .t-dot.g { background: #28c840 }
+    .t-title {
+      margin-left: 6px;
+      font-size: .72rem;
+      color: rgba(232,230,240,.4);
+      letter-spacing: .02em;
+    }
+
+    .t-body {
+      background: #0b0b12;
+      border: 1px solid rgba(226,232,240,.1);
+      border-radius: 0 0 10px 10px;
+      padding: 28px 28px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      line-height: 1.7;
+    }
+
+    .t-prompt { color: #ffffff; font-size: .82rem }
+    .t-cmd    { color: #e8e6f0; font-size: .82rem }
+    .t-err    { color: #ff5f57; font-size: .82rem }
+    .t-dim    { color: rgba(232,230,240,.35); font-size: .78rem }
+    .t-gap    { height: 8px }
+
+    .t-code {
+      font-family: 'Syne', system-ui, sans-serif;
+      font-size: clamp(4rem, 18vw, 7rem);
+      font-weight: 800;
+      color: rgba(255,255,255,.07);
+      letter-spacing: -.04em;
+      line-height: 1;
+      margin-bottom: 4px;
+      user-select: none;
+    }
+
+    .t-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      font-size: .78rem;
+      color: #ffffff;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,.3);
+      padding: 8px 18px;
+      border-radius: 6px;
+      transition: background .2s, border-color .2s;
+    }
+    .t-home:hover { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.6) }
+
+    .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 14px;
+      background: #ffffff;
+      vertical-align: middle;
+      margin-left: 2px;
+      animation: blink .9s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+  </style>
+</head>
+<body>
+  <div class="terminal">
+    <div class="t-bar">
+      <div class="t-dot r"></div>
+      <div class="t-dot y"></div>
+      <div class="t-dot g"></div>
+      <span class="t-title">david@DAVID-OS — bash — 80×24</span>
+    </div>
+    <div class="t-body">
+      <div class="t-code">404</div>
+      <div class="t-prompt">david@DAVID-OS:~$ <span class="t-cmd">cd <span id="path"></span></span></div>
+      <div class="t-err">bash: cd: <span id="path2"></span>: No such file or directory</div>
+      <div class="t-gap"></div>
+      <div class="t-dim"># The page you're looking for doesn't exist.</div>
+      <div class="t-dim"># Try going back to the portfolio.</div>
+      <div class="t-gap"></div>
+      <div class="t-prompt">david@DAVID-OS:~$ <span class="cursor"></span></div>
+      <a href="/" class="t-home">← cd ~/home</a>
+    </div>
+  </div>
+
+  <script>
+    const p = window.location.pathname;
+    document.getElementById('path').textContent  = p;
+    document.getElementById('path2').textContent = p;
+  </script>
+</body>
+</html>

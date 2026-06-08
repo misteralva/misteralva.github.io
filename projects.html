@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DA.OS — Projects</title>
+  <link rel="canonical" href="https://misteralva.github.io/projects.html">
+  <meta name="description" content="David Alvarez — IT Systems & Networks · Projects · Barcelona">
+  <meta property="og:title" content="DA.OS — Projects">
+  <meta property="og:description" content="David Alvarez · IT Systems & Networks Admin · Barcelona · CFGS ASIR · CCNA · C1 EN">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="assets/og-image.png">
+  <meta name="twitter:title" content="David Alvarez — Projects">
+  <meta name="theme-color" content="#64ffda">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%2309090f'/><text x='3' y='25' font-family='Georgia,serif' font-size='22' font-style='italic' fill='%2364ffda'>DA</text></svg>">
+  <link rel="preload" href="assets/kali-bg.webp" as="image" type="image/webp">
+  <link rel="dns-prefetch" href="https://api.github.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>html,body{background:#0d1117!important}</style>
+  <link rel="stylesheet" href="css/projects.css">
+</head>
+<body>
+  <div id="monitor-off" aria-hidden="true">
+    <div id="shutdown-terminal"></div>
+    <div class="mon-off-line"></div>
+  </div>
+
+  <!-- ══ Boot overlay ═══════════════════════════════════════════════ -->
+  <div id="boot-overlay">
+    <div id="boot-crt"></div>
+    <div id="boot-inner">
+      <div class="boot-logo mono">KALI LINUX</div>
+      <div class="boot-kali-sub">david@kali — loading projects</div>
+      <div id="boot-log" class="mono"></div>
+      <div id="boot-bar-wrap">
+        <div id="boot-bar"><div id="boot-fill"></div></div>
+        <span id="boot-pct" class="mono">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ Kali Desktop ══════════════════════════════════════════════ -->
+  <div id="kali-desktop">
+
+    <!-- Wallpaper -->
+    <div id="kali-bg"></div>
+    <div id="kali-vignette"></div>
+
+    <!-- ══ XFCE Top Panel ═══════════════════════════════════════════ -->
+    <header id="kali-panel">
+      <!-- Left: App menu + quick launchers + workspace switcher -->
+      <div class="kp-left">
+        <!-- Kali app menu button -->
+        <button class="kp-menu-btn" id="kp-menu-btn" title="Applications">
+          <i class="fas fa-dragon"></i>
+        </button>
+        <div class="kp-panel-sep"></div>
+        <!-- Quick launchers -->
+        <button class="kp-launch" title="File Manager" id="kp-launch-files">
+          <i class="fas fa-folder"></i>
+        </button>
+        <button class="kp-launch" title="Terminal Emulator" id="kp-launch-term">
+          <i class="fas fa-terminal"></i>
+        </button>
+        <a href="#" class="kp-launch" title="DA.OS Desktop" onclick="goToDesktop();return false;">
+          <i class="fas fa-desktop"></i>
+        </a>
+        <div class="kp-panel-sep"></div>
+        <!-- Workspace switcher -->
+        <div class="kp-workspaces">
+          <span class="kp-ws kp-ws-active">1</span>
+          <span class="kp-ws">2</span>
+          <span class="kp-ws">3</span>
+          <span class="kp-ws">4</span>
+        </div>
+        <!-- Active window title -->
+        <div class="kp-wintitle mono" id="kp-wintitle">Files — /home/david/projects</div>
+      </div>
+      <!-- Right: System tray + clock -->
+      <div class="kp-right">
+        <i class="fas fa-display kp-tray" title="Display settings"></i>
+        <i class="fas fa-volume-high kp-tray" title="Volume"></i>
+        <i class="fas fa-bell kp-tray" title="Notifications"></i>
+        <i class="fas fa-shield-halved kp-tray kp-tray-acc" title="VPN — active"></i>
+        <div class="kp-panel-sep"></div>
+        <div class="kp-clock">
+          <span id="kp-time" class="kp-time">--:--</span>
+        </div>
+        <div class="kp-panel-sep"></div>
+        <i class="fas fa-lock kp-tray" title="Lock screen"></i>
+        <i class="fas fa-power-off kp-tray" title="Power"></i>
+      </div>
+    </header>
+
+    <!-- ══ App Menu dropdown ════════════════════════════════════════ -->
+    <div id="kali-appmenu" aria-hidden="true">
+      <div class="kam-search">
+        <i class="fas fa-magnifying-glass kam-search-icon"></i>
+        <input type="text" placeholder="Type to search…" class="kam-input" id="kam-input" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="kam-body">
+        <div class="kam-cats">
+          <div class="kam-cat active" data-cat="Favorites"><i class="fas fa-star"></i> Favorites</div>
+          <div class="kam-cat" data-cat="Recently Used"><i class="fas fa-clock-rotate-left"></i> Recently Used</div>
+          <div class="kam-cat-sep"></div>
+          <div class="kam-cat" data-cat="01 - Reconnaissance"><i class="fas fa-eye"></i> 01 - Reconnaissance</div>
+          <div class="kam-cat" data-cat="02 - Resource Development"><i class="fas fa-tools"></i> 02 - Resource Development</div>
+          <div class="kam-cat" data-cat="03 - Initial Access"><i class="fas fa-door-open"></i> 03 - Initial Access</div>
+          <div class="kam-cat" data-cat="04 - Execution"><i class="fas fa-play"></i> 04 - Execution</div>
+          <div class="kam-cat" data-cat="05 - Persistence"><i class="fas fa-anchor"></i> 05 - Persistence</div>
+          <div class="kam-cat" data-cat="06 - Privilege Escalation"><i class="fas fa-arrow-up"></i> 06 - Privilege Escalation</div>
+          <div class="kam-cat" data-cat="07 - Defense Evasion"><i class="fas fa-user-secret"></i> 07 - Defense Evasion</div>
+          <div class="kam-cat" data-cat="08 - Credential Access"><i class="fas fa-key"></i> 08 - Credential Access</div>
+          <div class="kam-cat" data-cat="09 - Discovery"><i class="fas fa-search"></i> 09 - Discovery</div>
+          <div class="kam-cat" data-cat="10 - Lateral Movement"><i class="fas fa-network-wired"></i> 10 - Lateral Movement</div>
+        </div>
+        <div class="kam-apps" id="kam-apps"></div>
+      </div>
+      <div class="kam-footer">
+        <div class="kam-user"><i class="fab fa-linux"></i> kali</div>
+        <div class="kam-footer-btns">
+          <button class="kam-footer-btn" title="Settings"><i class="fas fa-sliders"></i></button>
+          <button class="kam-footer-btn" onclick="goToDesktop()" title="Log out"><i class="fas fa-right-from-bracket"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ Desktop icons grid ═══════════════════════════════════════ -->
+    <main id="kali-icons-area">
+      <div id="kali-icons">
+        <div class="ki-loading mono" id="ki-loading">
+          <i class="fas fa-circle-notch fa-spin"></i> Loading repos…
+        </div>
+      </div>
+    </main>
+
+    <!-- ══ Files window (project detail) ════════════════════════════ -->
+    <div id="kali-files" class="kali-win" aria-hidden="true">
+
+      <!-- Title bar (window controls) -->
+      <div class="kali-titlebar" id="kali-win-bar">
+        <div class="kali-win-btns">
+          <button class="kwb kwb-close" id="kfiles-close" aria-label="Close"></button>
+          <button class="kwb kwb-min"   aria-label="Minimise"></button>
+          <button class="kwb kwb-max"   aria-label="Maximise"></button>
+        </div>
+        <span class="kali-win-title mono" id="kfiles-title">Files</span>
+        <div class="kwt-r">
+          <i class="fas fa-thumbtack kali-pin-btn" title="Pin window"></i>
+        </div>
+      </div>
+
+      <!-- GNOME Header bar (nav + path + actions) -->
+      <div class="kali-headerbar">
+        <div class="khb-nav">
+          <button class="khb-btn" id="khb-back" title="Back (←)" disabled><i class="fas fa-chevron-left"></i></button>
+          <button class="khb-btn" id="khb-fwd"  title="Forward" disabled><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="khb-path mono" id="khb-path">
+          <span class="khb-crumb" data-idx="-1">~</span>
+          <span class="khb-sep">/</span>
+          <span class="khb-crumb" data-idx="-1">projects</span>
+          <span class="khb-sep" id="khb-sep2" style="display:none">/</span>
+          <span class="khb-crumb khb-active" id="khb-repo"></span>
+        </div>
+        <div class="khb-right">
+          <button class="khb-btn" id="khb-search" title="Search"><i class="fas fa-magnifying-glass"></i></button>
+          <button class="khb-btn khb-on" title="Detail view"><i class="fas fa-list"></i></button>
+          <div class="khb-vline"></div>
+          <button class="khb-btn" id="khb-term-toggle" title="Toggle Terminal (Ctrl+`)"><i class="fas fa-terminal"></i></button>
+          <div class="khb-vline"></div>
+          <button class="khb-btn" id="khb-menu" title="Menu"><i class="fas fa-ellipsis-vertical"></i></button>
+        </div>
+      </div>
+
+      <!-- Body: sidebar + content -->
+      <div class="kali-win-body">
+        <aside class="kali-sidebar">
+          <div class="ks-sect">Bookmarks</div>
+          <div class="ks-item active" id="ks-projects"><i class="fas fa-folder-open"></i> Projects</div>
+          <div class="ks-item" onclick="goToDesktop()"><i class="fas fa-desktop"></i> DA.OS Desktop</div>
+          <div class="ks-sep"></div>
+          <div class="ks-sect">Devices</div>
+          <div class="ks-item"><i class="fas fa-hard-drive"></i> david@kali</div>
+          <div class="ks-item"><i class="fas fa-network-wired"></i> Local Network</div>
+          <div class="ks-sep"></div>
+          <div class="ks-sect">Network</div>
+          <div class="ks-item" onclick="window.open('https://github.com/misteralva','_blank')"><i class="fab fa-github"></i> GitHub</div>
+          <div class="ks-item"><i class="fas fa-server"></i> Remote hosts</div>
+          <div class="ks-item"><i class="fas fa-shield-halved"></i> VPN</div>
+          <div class="ks-sep"></div>
+          <!-- Dynamic recent list -->
+          <div class="ks-sect" id="ks-recent-hdr" style="display:none">Recent</div>
+          <div id="ks-recent"></div>
+        </aside>
+        <div class="kali-content" id="kfiles-content">
+          <div class="kf-empty mono">Select a project from the desktop</div>
+        </div>
+      </div>
+
+      <!-- ══ Embedded Terminal Panel ══════════════════════ -->
+      <div id="kterm-panel" class="kterm-panel" aria-hidden="true">
+        <div class="kterm-resize-handle" id="kterm-resize"></div>
+        <div class="kterm-bar">
+          <i class="fas fa-terminal kterm-bar-icon"></i>
+          <span class="kterm-bar-title mono" id="kterm-bar-title">bash — ~/projects</span>
+          <div class="kterm-bar-btns">
+            <button class="kterm-bar-btn" id="kterm-clear-btn" title="Clear"><i class="fas fa-eraser"></i></button>
+            <button class="kterm-bar-btn" id="kterm-close-btn" title="Close"><i class="fas fa-xmark"></i></button>
+          </div>
+        </div>
+        <div class="kterm-body" id="kterm-body"></div>
+        <div class="kterm-input-row">
+          <div class="kterm-ps1-wrap">
+            <span class="kterm-ps1-top mono" id="kterm-ps1-top"></span>
+            <div class="kterm-ps1-bot-row">
+              <span class="kterm-ps1-bot mono" id="kterm-ps1-bot">└─$ </span>
+              <input id="kterm-inp" class="kterm-inp mono" autocomplete="off" spellcheck="false" placeholder="type a command…">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Status bar -->
+      <div class="kali-statusbar">
+        <span class="ksb-info mono" id="ksb-info"></span>
+        <span class="ksb-mid"></span>
+        <span class="ksb-right mono" id="ksb-right">misteralva · github.com</span>
+      </div>
+    </div>
+
+    <!-- No bottom dock — XFCE only has the top panel -->
+
+    <!-- ══ Right-click Context Menu (desktop) ══════════ -->
+    <div id="kali-ctxmenu" aria-hidden="true">
+      <div class="kcm-item" id="kcm-term"><i class="fas fa-terminal"></i> Open Terminal Here</div>
+      <div class="kcm-item" id="kcm-refresh"><i class="fas fa-rotate-right"></i> Refresh</div>
+      <div class="kcm-sep"></div>
+      <div class="kcm-item" id="kcm-arrange"><i class="fas fa-border-all"></i> Arrange Icons</div>
+      <div class="kcm-item kcm-dim" id="kcm-newfolder"><i class="fas fa-folder-plus"></i> Create New Folder</div>
+      <div class="kcm-sep"></div>
+      <div class="kcm-item" id="kcm-about"><i class="fas fa-dragon"></i> About Kali Linux</div>
+    </div>
+
+    <!-- ══ Right-click Context Menu (icon) ══════════════ -->
+    <div id="kali-icon-ctxmenu" aria-hidden="true">
+      <div class="kcm-item" id="kicm-open"><i class="fas fa-folder-open"></i> Open</div>
+      <div class="kcm-item" id="kicm-term"><i class="fas fa-terminal"></i> Open in Terminal</div>
+      <div class="kcm-sep"></div>
+      <div class="kcm-item" id="kicm-copy-ssh"><i class="fas fa-code-branch"></i> Copy SSH URL</div>
+      <div class="kcm-item" id="kicm-github"><i class="fab fa-github"></i> View on GitHub</div>
+      <div class="kcm-sep"></div>
+      <div class="kcm-item kcm-danger" id="kicm-delete"><i class="fas fa-trash"></i> Move to Trash</div>
+    </div>
+
+  </div>
+
+  <!-- Kali toast notification -->
+  <div id="kali-toast" aria-live="polite">
+    <i id="kali-toast-icon" class="fas fa-circle-info"></i>
+    <span><span id="kali-toast-title"></span><span id="kali-toast-msg"></span></span>
+  </div>
+
+  <!-- About Kali panel -->
+  <div id="kali-about" role="dialog" aria-modal="true">
+    <pre id="kali-about-box"></pre>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked@9/marked.min.js"></script>
+  <script type="module" src="js/projects.js"></script>
+</body>
+</html>

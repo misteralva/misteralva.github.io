@@ -1,0 +1,785 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio of David Alvarez — IT Systems & Networks · Barcelona. CFGS ASIR, CCNA, C1 English.">
+  <meta property="og:title" content="David Alvarez · OS Portfolio">
+  <meta property="og:description" content="IT Systems & Networks Admin · Barcelona · CFGS ASIR · CCNA · C1 EN">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://misteralva.github.io/">
+  <meta property="og:image" content="assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="assets/og-image.png">
+  <meta name="twitter:title" content="David Alvarez — IT Systems & Networks">
+  <meta name="twitter:description" content="IT Systems & Networks Admin · Barcelona · CFGS ASIR · CCNA · C1 EN">
+  <meta name="theme-color" content="#64ffda">
+  <link rel="canonical" href="https://misteralva.github.io/">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%2309090f'/><text x='3' y='25' font-family='Georgia,serif' font-size='22' font-style='italic' fill='%2364ffda'>DA</text></svg>">
+  <title>DA. — Systems &amp; Networks</title>
+
+  <!-- Preload critical assets -->
+  <link rel="preload" href="css/main.css" as="style">
+  <link rel="preload" href="assets/profile.png" as="image">
+  <link rel="dns-prefetch" href="https://api.github.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+  <style>html,body{background:#09090f!important}</style>
+  <link rel="stylesheet" href="css/main.css">
+
+<script type="importmap">
+  { "imports": {
+    "three":         "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  } }
+  </script>
+</head>
+<body>
+
+  <!-- Interactive Terminal Overlay -->
+  <div id="loader">
+    <div id="tl-bar">
+      <div class="tl-dot tl-r"></div>
+      <div class="tl-dot tl-y"></div>
+      <div class="tl-dot tl-g"></div>
+      <span id="tl-title">david@DAVID-OS — bash — 80×24</span>
+    </div>
+    <div id="tl-out"></div>
+    <div id="tl-in-row">
+      <span class="tl-prompt">david@DAVID-OS:~$&nbsp;</span>
+      <input type="text" id="tl-in" autocomplete="off" spellcheck="false" autofocus>
+    </div>
+  </div>
+
+  <!-- Toast notifications -->
+  <div id="toast-stack" aria-live="polite"></div>
+
+  <!-- Screensaver -->
+  <div id="screensaver" aria-hidden="true">
+    <div id="ss-inner">
+      <div id="ss-user" class="mono">david@DAVID-OS</div>
+      <div id="ss-time"></div>
+      <div id="ss-date" class="mono"></div>
+    </div>
+    <div id="ss-hint" class="mono">move mouse or press any key to wake</div>
+  </div>
+
+  <!-- Effects -->
+  <div id="crt-wipe"    aria-hidden="true"></div>
+  <div id="light-flash" aria-hidden="true"></div>
+  <div id="monitor-on"  aria-hidden="true"><div class="mon-line"></div></div>
+  <div id="shutdown-overlay" aria-hidden="true">
+    <div id="shutdown-terminal-idx"></div>
+    <div class="mon-off-line" id="idx-mon-line"></div>
+  </div>
+  <div id="scanlines"   aria-hidden="true"></div>
+  <div id="grain"  aria-hidden="true"></div>
+  <canvas id="trail" aria-hidden="true"></canvas>
+  <div id="cur"    aria-hidden="true"></div>
+
+  <!-- Spotlight (Ctrl+K) -->
+  <div id="spotlight" aria-hidden="true" role="dialog" aria-label="Spotlight">
+    <div class="sp-backdrop"></div>
+    <div class="sp-modal">
+      <div class="sp-input-row">
+        <i class="fas fa-magnifying-glass sp-icon" aria-hidden="true"></i>
+        <input type="text" id="sp-input" placeholder="Search Portfolio OS…" autocomplete="off" spellcheck="false" aria-label="Search">
+        <span class="sp-esc mono" aria-hidden="true">esc</span>
+      </div>
+      <div class="sp-results" id="sp-results" role="listbox"></div>
+      <div class="sp-footer mono" aria-hidden="true">
+        <span>↑↓ navigate</span><span>↵ open</span><span>esc close</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ DESKTOP ═══════════════════════════════════════════ -->
+  <div id="desktop">
+
+    <!-- Snap preview overlay -->
+    <div id="snap-prev" aria-hidden="true"></div>
+
+    <!-- Background image layer — behind the 3D canvas -->
+    <div id="desktop-bg-img" aria-hidden="true"></div>
+
+    <!-- 3D Wallpaper -->
+    <canvas id="gl" aria-hidden="true"></canvas>
+
+    <!-- Starfield -->
+    <canvas id="starfield" aria-hidden="true"></canvas>
+
+    <!-- Aurora ambient (after #gl so it renders on top) -->
+    <div id="aurora" aria-hidden="true">
+      <div class="aurora-blob"></div>
+      <div class="aurora-blob"></div>
+      <div class="aurora-blob"></div>
+      <div class="aurora-blob"></div>
+      <div class="aurora-blob"></div>
+      <div class="aurora-blob"></div>
+    </div>
+
+    <!-- 3D Loader -->
+    <div id="gl-load">
+      <div class="glb"><div id="gl-fill"></div></div>
+      <span id="gl-pct" class="mono">Loading room…</span>
+    </div>
+
+    <!-- Vignette -->
+    <div id="desk-overlay" aria-hidden="true"></div>
+
+
+
+    <!-- Hotspot labels (populated by scene.js) -->
+    <div id="hotspot-container" aria-hidden="true"></div>
+
+    <!-- MENUBAR -->
+    <header id="menubar">
+      <div class="mb-left">
+        <span class="mb-logo">DA<span class="dot">.</span></span>
+        <nav class="mb-nav" aria-label="Main menu">
+          <button class="mb-item" data-win="about"       data-i18n="nav.profile">Profile</button>
+          <button class="mb-item" data-win="skills"      data-i18n="nav.skills">Skills</button>
+          <button class="mb-item" data-win="certs"       data-i18n="nav.certs">Certifications</button>
+          <button class="mb-item" data-win="experience"  data-i18n="nav.experience">Experience</button>
+          <button class="mb-item" data-win="contact"     data-i18n="nav.contact">Contact</button>
+        </nav>
+      </div>
+      <div class="mb-right">
+        <button id="mb-power-btn" class="mb-power-btn" aria-label="Shut down" title="Shut down">
+          <i class="fas fa-power-off"></i>
+        </button>
+        <button id="mb-sound-btn" class="mb-sound-btn" aria-label="Toggle sound" title="Sound on">
+          <i class="fas fa-volume-low" id="mb-sound-icon"></i>
+        </button>
+        <button id="mb-lang-btn" class="mb-lang-btn mono" aria-label="Switch language" title="Switch language">ES</button>
+        <button id="mb-sp-btn" class="mb-sp-btn" aria-label="Search portfolio" title="Search">
+          <i class="fas fa-magnifying-glass"></i>
+        </button>
+        <span class="mb-weather mono" id="mb-weather"></span>
+        <span class="mb-date mono" id="mb-date" role="button" tabindex="0" title="Calendar" style="cursor:pointer"></span>
+        <span class="mb-time mono" id="mb-time" role="button" tabindex="0" title="Calendar" style="cursor:pointer">--:--</span>
+      </div>
+    </header>
+
+    <!-- Calendar popup -->
+    <div id="mb-calendar" role="dialog" aria-label="Calendar" aria-hidden="true">
+      <div id="mb-cal-head">
+        <button id="mb-cal-prev" aria-label="Previous month">&#8249;</button>
+        <span id="mb-cal-title"></span>
+        <button id="mb-cal-next" aria-label="Next month">&#8250;</button>
+      </div>
+      <div id="mb-cal-labels">
+        <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+      </div>
+      <div id="mb-cal-days"></div>
+    </div>
+
+    <!-- DESKTOP HERO -->
+    <div id="desk-hero" aria-hidden="true">
+      <h1 class="dh-name">
+        <span class="dhn">David Alvarez</span>
+      </h1>
+      <div class="dh-sub mono"><span id="typed"></span><span class="tcur" aria-hidden="true">_</span></div>
+    </div>
+
+    <!-- ═══ WINDOWS ═══════════════════════════════════════ -->
+
+    <!-- profile.app -->
+    <div class="win" id="win-about" role="dialog" aria-label="Profile" aria-modal="true">
+      <div class="win-chrome" data-drag="about">
+        <div class="win-btns">
+          <button class="wb wb-r" data-action="close" data-win="about" aria-label="Close"></button>
+          <button class="wb wb-y" data-action="min"   data-win="about" aria-label="Minimise"></button>
+          <button class="wb wb-g" data-action="max"   data-win="about" aria-label="Maximise"></button>
+        </div>
+        <span class="win-title mono">profile.app</span>
+        <div class="win-chrome-r"></div>
+      </div>
+      <div class="win-body">
+        <aside class="win-sidebar" aria-label="Sections">
+          <div class="ws-sect mono">Profile</div>
+          <button class="ws-item active" data-section="bio"><i class="fas fa-id-badge" aria-hidden="true"></i><span data-i18n="side.about">About</span></button>
+          <button class="ws-item" data-section="data"><i class="fas fa-list-ul" aria-hidden="true"></i><span data-i18n="side.info">Info</span></button>
+          <button class="ws-item" data-section="langs"><i class="fas fa-language" aria-hidden="true"></i><span data-i18n="side.langs">Languages</span></button>
+          <button class="ws-item" data-section="edu"><i class="fas fa-graduation-cap" aria-hidden="true"></i><span data-i18n="side.edu">Education</span></button>
+          <button class="ws-item" data-section="setup"><i class="fas fa-screwdriver-wrench" aria-hidden="true"></i><span>Setup</span></button>
+          <div class="ws-sect mono ws-sect-links">Links</div>
+          <a href="https://www.linkedin.com/in/davidalvarez1997" target="_blank" rel="noopener" class="ws-item"><i class="fab fa-linkedin" aria-hidden="true"></i><span>LinkedIn</span></a>
+          <a href="https://github.com/misteralva" target="_blank" rel="noopener" class="ws-item"><i class="fab fa-github" aria-hidden="true"></i><span>GitHub</span></a>
+          <a href="assets/CV_David_Alvarez.pdf" download class="ws-item"><i class="fas fa-file-arrow-down" aria-hidden="true"></i><span>CV</span></a>
+        </aside>
+        <div class="win-content">
+
+          <!-- ── BIO pane ──────────────────── -->
+          <div class="wc-pane active" id="pane-bio">
+            <div class="profile-card">
+              <div class="profile-pic-frame">
+                <img src="assets/profile.png" alt="David Alvarez" class="profile-pic" loading="lazy" decoding="async" width="84" height="84">
+              </div>
+              <div class="profile-meta">
+                <h2 class="profile-name"><em>David</em> Alvarez</h2>
+                <p class="profile-role mono">IT Systems &amp; Networks Admin</p>
+                <div class="profile-chips">
+                  <span class="pchip mono">CFGS ASIR</span>
+                  <span class="pchip mono">CCNA</span>
+                  <span class="pchip mono">C1 EN</span>
+                </div>
+              </div>
+            </div>
+            <div class="wc-sep"></div>
+            <p data-i18n-html="bio.p1">IT professional with experience in international operational environments, currently pursuing a Higher Degree in <strong>Network Systems Administration</strong> with a Cybersecurity specialisation.</p>
+            <p data-i18n-html="bio.p2">Managed contracts, clients and data using <strong>SAP, Salesforce and Mercury</strong> over 2 years at Sthree Spain. Six years in the US · C1 English · Multicultural environments.</p>
+            <p data-i18n-html="bio.p3">Seeking roles in <strong>IT, networks and infrastructure</strong>.</p>
+            <div class="profile-actions">
+              <a href="assets/CV_David_Alvarez.pdf" download class="btn-primary btn-sm">CV ↓</a>
+              <a href="mailto:imdavidalvarez@gmail.com" class="btn-outline-sm mono">imdavidalvarez@gmail.com</a>
+            </div>
+          </div>
+
+          <!-- ── INFO pane ──────────────────── -->
+          <div class="wc-pane" id="pane-data">
+            <h2 class="wc-title" data-i18n-html="info.title">Personal <em>info</em></h2>
+            <dl class="wc-dl">
+              <div><dt><i class="fas fa-location-dot"></i><span data-i18n="info.location.lbl">Location</span></dt><dd>Hospitalet · Barcelona</dd></div>
+              <div><dt><i class="fas fa-graduation-cap"></i><span data-i18n="info.edu.lbl">Education</span></dt><dd>CFGS ASIR · Cybersecurity</dd></div>
+              <div><dt><i class="fas fa-globe"></i><span data-i18n="info.langs.lbl">Languages</span></dt><dd>ES · CAT · EN (C1)</dd></div>
+              <div><dt><i class="fas fa-envelope"></i>Email</dt><dd>imdavidalvarez@gmail.com</dd></div>
+            </dl>
+          </div>
+
+          <!-- ── LANGUAGES pane ────────────── -->
+          <div class="wc-pane" id="pane-langs">
+            <h2 class="wc-title" data-i18n-html="langs.title">Languages <em>&amp; Soft skills</em></h2>
+            <div class="lang-grid">
+              <div class="lang-item">
+                <div class="lang-flag">ES</div>
+                <div class="lang-info">
+                  <span class="lang-name">Spanish</span>
+                  <span class="lang-lvl mono">Native</span>
+                </div>
+                <div class="lang-bar-wrap"><div class="lang-bar"><div class="lang-fill" style="width:100%"></div></div></div>
+              </div>
+              <div class="lang-item">
+                <div class="lang-flag">CA</div>
+                <div class="lang-info">
+                  <span class="lang-name">Catalan</span>
+                  <span class="lang-lvl mono">Native</span>
+                </div>
+                <div class="lang-bar-wrap"><div class="lang-bar"><div class="lang-fill" style="width:100%"></div></div></div>
+              </div>
+              <div class="lang-item">
+                <div class="lang-flag">EN</div>
+                <div class="lang-info">
+                  <span class="lang-name">English</span>
+                  <span class="lang-lvl mono">C1 Advanced</span>
+                </div>
+                <div class="lang-bar-wrap"><div class="lang-bar"><div class="lang-fill" style="width:85%"></div></div></div>
+              </div>
+            </div>
+            <div class="wc-sep"></div>
+            <h3 class="sk-h" style="margin-bottom:12px">Soft Skills</h3>
+            <div class="soft-chips">
+              <span class="soft-chip" data-i18n="soft.teamwork">Teamwork</span>
+              <span class="soft-chip" data-i18n="soft.problem">Problem solving</span>
+              <span class="soft-chip" data-i18n="soft.comm">Communication</span>
+              <span class="soft-chip" data-i18n="soft.adapt">Adaptability</span>
+              <span class="soft-chip" data-i18n="soft.detail">Attention to detail</span>
+              <span class="soft-chip" data-i18n="soft.incident">Incident management</span>
+            </div>
+          </div>
+
+          <!-- ── EDUCATION pane ─────────────── -->
+          <div class="wc-pane" id="pane-edu">
+            <h2 class="wc-title">Edu<em>cation</em></h2>
+            <div class="cert-list">
+              <div class="cert-item">
+                <div class="cert-icon"><i class="fas fa-graduation-cap" aria-hidden="true"></i></div>
+                <div class="cert-info">
+                  <span class="cert-name">CFGS — Network Systems Administration + Cybersecurity</span>
+                  <span class="cert-issuer mono">ASIR · Cybersecurity specialisation · In progress</span>
+                </div>
+                <span class="cert-badge cert-badge-dim mono" data-i18n="cert.inprogress">In progress</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── SETUP pane ─────────────────────── -->
+          <div class="wc-pane" id="pane-setup">
+            <h2 class="wc-title" data-i18n-html="setup.title">My <em>Setup</em></h2>
+            <div class="setup-grid">
+              <div class="setup-card">
+                <div class="setup-card-icon"><i class="fab fa-linux"></i></div>
+                <div class="setup-card-info">
+                  <span class="setup-card-name" data-i18n="setup.os">Operating System</span>
+                  <span class="setup-card-val mono">Kali Linux 2024</span>
+                </div>
+              </div>
+              <div class="setup-card">
+                <div class="setup-card-icon"><i class="fas fa-code"></i></div>
+                <div class="setup-card-info">
+                  <span class="setup-card-name" data-i18n="setup.editor">Editor</span>
+                  <span class="setup-card-val mono">VS Code</span>
+                </div>
+              </div>
+              <div class="setup-card">
+                <div class="setup-card-icon"><i class="fas fa-terminal"></i></div>
+                <div class="setup-card-info">
+                  <span class="setup-card-name" data-i18n="setup.terminal">Terminal</span>
+                  <span class="setup-card-val mono">xfce4-terminal</span>
+                </div>
+              </div>
+              <div class="setup-card">
+                <div class="setup-card-icon"><i class="fab fa-firefox-browser"></i></div>
+                <div class="setup-card-info">
+                  <span class="setup-card-name" data-i18n="setup.browser">Browser</span>
+                  <span class="setup-card-val mono">Firefox ESR</span>
+                </div>
+              </div>
+            </div>
+            <div class="wc-sep"></div>
+            <h3 class="sk-h" style="margin-bottom:12px" data-i18n="setup.sectools">Security Tools</h3>
+            <div class="setup-tools">
+              <span class="setup-tool"><i class="fas fa-magnifying-glass-chart"></i> Wireshark</span>
+              <span class="setup-tool"><i class="fas fa-network-wired"></i> Nmap</span>
+              <span class="setup-tool"><i class="fas fa-diagram-project"></i> Cisco PT</span>
+              <span class="setup-tool"><i class="fas fa-shield-halved"></i> Metasploit</span>
+              <span class="setup-tool"><i class="fas fa-bug"></i> Burp Suite</span>
+              <span class="setup-tool"><i class="fas fa-key"></i> John the Ripper</span>
+              <span class="setup-tool"><i class="fas fa-wifi"></i> Aircrack-ng</span>
+              <span class="setup-tool"><i class="fab fa-git-alt"></i> Git</span>
+            </div>
+            <div class="wc-sep"></div>
+            <h3 class="sk-h" style="margin-bottom:12px" data-i18n="setup.studying">Currently studying</h3>
+            <div class="setup-tools">
+              <span class="setup-tool setup-tool-active"><i class="fas fa-graduation-cap"></i> CFGS ASIR</span>
+              <span class="setup-tool setup-tool-active"><i class="fas fa-shield-halved"></i> Cybersecurity specialisation</span>
+              <span class="setup-tool setup-tool-active"><i class="fas fa-network-wired"></i> CCNA</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- skills.app -->
+    <div class="win" id="win-skills" role="dialog" aria-label="Skills" aria-modal="true">
+      <div class="win-chrome" data-drag="skills">
+        <div class="win-btns">
+          <button class="wb wb-r" data-action="close" data-win="skills" aria-label="Close"></button>
+          <button class="wb wb-y" data-action="min"   data-win="skills" aria-label="Minimise"></button>
+          <button class="wb wb-g" data-action="max"   data-win="skills" aria-label="Maximise"></button>
+        </div>
+        <span class="win-title mono">skills.app</span>
+        <div class="win-chrome-r"></div>
+      </div>
+      <div class="win-body win-body-fill">
+        <div class="proj-scroll">
+          <div class="skill-section">
+            <h3 class="skill-cat mono"><i class="fas fa-network-wired" aria-hidden="true"></i> <span data-i18n="skills.net">Networks &amp; Systems</span></h3>
+            <div class="skill-logo-grid">
+              <div class="skill-item"><i class="fas fa-network-wired"></i><span>TCP/IP</span></div>
+              <div class="skill-item"><i class="fas fa-server"></i><span>DNS · DHCP</span></div>
+              <div class="skill-item"><i class="fas fa-shield-halved"></i><span>VPN</span></div>
+              <div class="skill-item"><i class="fas fa-route"></i><span>Routing</span></div>
+              <div class="skill-item"><i class="fas fa-magnifying-glass-chart"></i><span>Wireshark</span></div>
+              <div class="skill-item"><i class="fas fa-fire"></i><span>Firewalls</span></div>
+            </div>
+          </div>
+          <div class="skill-section">
+            <h3 class="skill-cat mono"><i class="fas fa-desktop" aria-hidden="true"></i> <span data-i18n="skills.os">OS &amp; Admin</span></h3>
+            <div class="skill-logo-grid">
+              <div class="skill-item"><i class="fab fa-linux"></i><span>Linux</span></div>
+              <div class="skill-item"><i class="fab fa-windows"></i><span>Win Server</span></div>
+              <div class="skill-item"><i class="fas fa-sitemap"></i><span>Active Dir.</span></div>
+              <div class="skill-item"><i class="fas fa-terminal"></i><span>Bash · SSH</span></div>
+              <div class="skill-item"><i class="fab fa-apple"></i><span>MacOS</span></div>
+            </div>
+          </div>
+          <div class="skill-section">
+            <h3 class="skill-cat mono"><i class="fas fa-toolbox" aria-hidden="true"></i> <span data-i18n="skills.tools">Tools</span></h3>
+            <div class="skill-logo-grid">
+              <div class="skill-item skill-text-icon"><span class="si-text">SAP</span><span>SAP ERP</span></div>
+              <div class="skill-item"><i class="fab fa-salesforce"></i><span>Salesforce</span></div>
+              <div class="skill-item"><i class="fas fa-circle-nodes"></i><span>Mercury</span></div>
+              <div class="skill-item"><i class="fas fa-diagram-project"></i><span>Cisco PT</span></div>
+              <div class="skill-item"><i class="fab fa-git-alt"></i><span>Git</span></div>
+            </div>
+          </div>
+          <div class="skill-section">
+            <h3 class="skill-cat mono"><i class="fas fa-code" aria-hidden="true"></i> Development</h3>
+            <div class="skill-logo-grid">
+              <div class="skill-item"><i class="fab fa-html5"></i><span>HTML5</span></div>
+              <div class="skill-item"><i class="fab fa-css3-alt"></i><span>CSS3</span></div>
+              <div class="skill-item"><i class="fab fa-js"></i><span>JavaScript</span></div>
+              <div class="skill-item"><i class="fab fa-php"></i><span>PHP</span></div>
+              <div class="skill-item"><i class="fas fa-database"></i><span>SQL</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- certs.app -->
+    <div class="win" id="win-certs" role="dialog" aria-label="Certifications" aria-modal="true">
+      <div class="win-chrome" data-drag="certs">
+        <div class="win-btns">
+          <button class="wb wb-r" data-action="close" data-win="certs" aria-label="Close"></button>
+          <button class="wb wb-y" data-action="min"   data-win="certs" aria-label="Minimise"></button>
+          <button class="wb wb-g" data-action="max"   data-win="certs" aria-label="Maximise"></button>
+        </div>
+        <span class="win-title mono">certs.app</span>
+        <div class="win-chrome-r"></div>
+      </div>
+      <div class="win-body">
+        <div class="win-content">
+          <h2 class="wc-title" data-i18n-html="certs.title">Certifi<em>cations</em></h2>
+          <div class="cert-list">
+            <div class="cert-item">
+              <div class="cert-icon"><i class="fas fa-network-wired" aria-hidden="true"></i></div>
+              <div class="cert-info">
+                <span class="cert-name" data-i18n="cert.ccna">CCNA: Introduction to Networks</span>
+                <span class="cert-issuer mono">Cisco Networking Academy</span>
+              </div>
+              <span class="cert-badge cert-badge-dim mono" data-i18n="cert.inprogress">In progress</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- experience.app -->
+    <div class="win" id="win-experience" role="dialog" aria-label="Experience" aria-modal="true">
+      <div class="win-chrome" data-drag="experience">
+        <div class="win-btns">
+          <button class="wb wb-r" data-action="close" data-win="experience" aria-label="Close"></button>
+          <button class="wb wb-y" data-action="min"   data-win="experience" aria-label="Minimise"></button>
+          <button class="wb wb-g" data-action="max"   data-win="experience" aria-label="Maximise"></button>
+        </div>
+        <span class="win-title mono">experience.app</span>
+        <div class="win-chrome-r"></div>
+      </div>
+      <div class="win-body">
+        <div class="win-content">
+          <div class="exp-list">
+
+            <div class="exp-item">
+              <div class="exp-aside">
+                <span class="exp-date mono">Jul 2023 — Sep 2025</span>
+                <span class="exp-co mono">Sthree · Barcelona</span>
+              </div>
+              <div class="exp-body">
+                <h3 class="exp-role" data-i18n-html="exp1.role">Operations Specialist <em>Spain</em></h3>
+                <ul>
+                  <li data-i18n="exp1.li1">Operations management, including onboarding training for new hires and incident support for internal teams and clients</li>
+                  <li data-i18n="exp1.li2">Analysis and improvement of operational processes, coordinating across different departments</li>
+                  <li data-i18n="exp1.li3">Management of clients, payments, and purchase orders using SAP, in collaboration with the Billing team</li>
+                  <li data-i18n="exp1.li4">Administration of contracts, placements, and operational data using SAP and Salesforce, and later Mercury</li>
+                </ul>
+                <div class="chips"><span>SAP</span><span>Salesforce</span><span>Mercury</span></div>
+              </div>
+            </div>
+
+            <div class="exp-item">
+              <div class="exp-aside">
+                <span class="exp-date mono">Sep 2022 — May 2023</span>
+                <span class="exp-co mono">Chronis Elite · Long Island, NY</span>
+              </div>
+              <div class="exp-body">
+                <h3 class="exp-role" data-i18n-html="exp2.role">Player Relation <em>Manager</em></h3>
+                <ul>
+                  <li data-i18n="exp2.li1">Recruitment of academy-level players</li>
+                  <li data-i18n="exp2.li2">Management and coordination with elite tournaments and European academies for international experiences</li>
+                  <li data-i18n="exp2.li3">Planning of travel, training sessions, and development programs for players</li>
+                </ul>
+                <div class="chips"><span>International Management</span><span>Logistics</span><span>Sports</span></div>
+              </div>
+            </div>
+
+            <div class="exp-item">
+              <div class="exp-aside">
+                <span class="exp-date mono">Jun 2022 — May 2023</span>
+                <span class="exp-co mono">DV7 Soccer · Astoria, NY</span>
+              </div>
+              <div class="exp-body">
+                <h3 class="exp-role" data-i18n-html="exp3.role">Player Developmental / <em>Project Manager Assistant</em></h3>
+                <ul>
+                  <li data-i18n="exp3.li1">Implementation and oversight of the DV7 methodology at the New York academy</li>
+                  <li data-i18n="exp3.li2">Institutional coordination with leagues, federations, and local football organizations</li>
+                  <li data-i18n="exp3.li3">Management of events and special projects, including DV7 experiences, international camps, and university scholarship programs</li>
+                </ul>
+                <div class="chips"><span>Project Management</span><span>Sports</span><span>Events</span></div>
+              </div>
+            </div>
+
+            <div class="exp-item">
+              <div class="exp-aside">
+                <span class="exp-date mono">Jan 2022 — May 2022</span>
+                <span class="exp-co mono">Carolina Esports Hub · Charlotte, NC</span>
+              </div>
+              <div class="exp-body">
+                <h3 class="exp-role" data-i18n-html="exp4.role">Internship — Operations <em>Trainee</em></h3>
+                <ul>
+                  <li data-i18n="exp4.li1">Support in esports event production and live streams on Twitch</li>
+                  <li data-i18n="exp4.li2">A/V quality optimisation: OBS Studio, NDI, lighting and audio</li>
+                  <li data-i18n="exp4.li3">Installation and configuration of hardware/software including PCs, games, anti-cheat and firmware</li>
+                </ul>
+                <div class="chips"><span>OBS Studio</span><span>NDI</span><span>Technical Support</span><span>Hardware</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- projects.app -->
+    <div class="win win-lg" id="win-projects" role="dialog" aria-label="Projects" aria-modal="true">
+      <div class="win-chrome" data-drag="projects">
+        <div class="win-btns">
+          <button class="wb wb-r" data-action="close" data-win="projects" aria-label="Close"></button>
+          <button class="wb wb-y" data-action="min"   data-win="projects" aria-label="Minimise"></button>
+          <button class="wb wb-g" data-action="max"   data-win="projects" aria-label="Maximise"></button>
+        </div>
+        <span class="win-title mono">projects.app</span>
+        <button class="win-fullpage mono" id="btn-fullpage" aria-label="Fullscreen view" title="View fullscreen">
+          <i class="fas fa-arrow-up-right-from-square"></i> fullscreen
+        </button>
+        <div class="win-chrome-r"></div>
+      </div>
+      <div class="win-body win-body-fill">
+        <div class="proj-scroll">
+          <div class="proj-grid" id="proj-grid">
+            <div class="proj-loading mono"><i class="fas fa-circle-notch fa-spin" aria-hidden="true"></i> Loading repos…</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- project-detail.app -->
+    <div class="win" id="win-project-detail" role="dialog" aria-label="Project detail" aria-modal="true">
+      <div class="win-chrome" data-drag="project-detail">
+        <div class="win-btns">
+          <button class="wb wb-r" data-action="close" data-win="project-detail" aria-label="Close"></button>
+          <button class="wb wb-y" data-action="min"   data-win="project-detail" aria-label="Minimise"></button>
+          <button class="wb wb-g" data-action="max"   data-win="project-detail" aria-label="Maximise"></button>
+        </div>
+        <span class="win-title mono" id="pd-win-title">readme.md</span>
+        <div class="win-chrome-r"></div>
+      </div>
+      <div class="win-body" id="pd-body">
+        <div class="pd-stripe" id="pd-stripe"></div>
+        <div class="win-content pd-content">
+          <header class="pd-header">
+            <h2 class="pd-name" id="pd-name">Project</h2>
+            <div class="pd-lang-row">
+              <span class="pd-lang-dot" id="pd-lang-dot"></span>
+              <span class="mono" id="pd-lang-name"></span>
+              <span class="pd-stars mono" id="pd-stars"></span>
+            </div>
+          </header>
+          <p class="pd-desc" id="pd-desc"></p>
+          <div class="pd-topics" id="pd-topics"></div>
+          <div class="pd-actions" id="pd-actions"></div>
+          <div class="pd-preview" id="pd-preview"></div>
+          <div class="pd-readme" id="pd-readme"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- contact.app -->
+    <div class="win" id="win-contact" role="dialog" aria-label="Contact" aria-modal="true">
+      <div class="win-chrome" data-drag="contact">
+        <div class="win-btns">
+          <button class="wb wb-r" data-action="close" data-win="contact" aria-label="Close"></button>
+          <button class="wb wb-y" data-action="min"   data-win="contact" aria-label="Minimise"></button>
+          <button class="wb wb-g" data-action="max"   data-win="contact" aria-label="Maximise"></button>
+        </div>
+        <span class="win-title mono">contact.app</span>
+        <div class="win-chrome-r"></div>
+      </div>
+      <div class="win-body">
+        <div class="win-content">
+          <div class="contact-grid">
+            <div>
+              <h2 class="contact-h" data-i18n-html="contact.title">Contact <em>me.</em></h2>
+              <div class="contact-mail-row">
+                <a href="mailto:imdavidalvarez@gmail.com" class="contact-mail">imdavidalvarez@gmail.com</a>
+                <button class="contact-copy-btn" id="copy-email-btn" title="Copy email" aria-label="Copy email address">
+                  <i class="fas fa-copy"></i>
+                </button>
+              </div>
+              <div class="contact-info mono">
+                <span>Hospitalet · 08902</span>
+              </div>
+              <div class="socials">
+                <a href="https://www.linkedin.com/in/davidalvarez1997" target="_blank" rel="noopener" class="soc mono">LinkedIn</a>
+                <a href="https://github.com/misteralva" target="_blank" rel="noopener" class="soc mono">GitHub</a>
+                <a href="assets/CV_David_Alvarez.pdf" download class="soc mono">CV ↓</a>
+              </div>
+            </div>
+            <form class="c-form" id="c-form" novalidate>
+              <div class="fg">
+                <input type="text" id="fn" name="name" placeholder=" " required autocomplete="name">
+                <label for="fn" data-i18n="contact.name.lbl">Name *</label>
+                <span class="ferr" role="alert"></span>
+              </div>
+              <div class="fg">
+                <input type="email" id="fe" name="email" placeholder=" " required autocomplete="email">
+                <label for="fe" data-i18n="contact.email.lbl">Email *</label>
+                <span class="ferr" role="alert"></span>
+              </div>
+              <div class="fg">
+                <textarea id="fm" name="message" placeholder=" " required rows="4"></textarea>
+                <label for="fm" data-i18n="contact.msg.lbl">Message *</label>
+                <span class="ferr" role="alert"></span>
+              </div>
+              <div class="fstatus" id="fstatus" role="alert" aria-live="polite"></div>
+              <button type="submit" class="btn-primary" id="fbtn" data-i18n="contact.send">Send message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- terminal.app -->
+    <div class="win" id="win-terminal" role="dialog" aria-label="Terminal" aria-modal="true">
+      <div class="win-chrome" data-drag="terminal">
+        <div class="win-btns">
+          <button class="wb wb-r" data-action="close" data-win="terminal" aria-label="Close"></button>
+          <button class="wb wb-y" data-action="min"   data-win="terminal" aria-label="Minimise"></button>
+          <button class="wb wb-g" data-action="max"   data-win="terminal" aria-label="Maximise"></button>
+        </div>
+        <span class="win-title mono">terminal.app — bash</span>
+        <div class="win-chrome-r"></div>
+      </div>
+      <div class="win-body win-body-fill">
+        <div class="term-body" id="term-body">
+          <div class="term-welcome mono">Last login: <span id="term-login"></span> on ttys001</div>
+          <div id="term-output"></div>
+          <div class="term-line">
+            <span class="term-prompt mono">david@DAVID-OS:~$&nbsp;</span><span class="term-cmd-cur" id="term-cmd"></span><span class="term-cursor" aria-hidden="true">▋</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ DOCK ═══════════════════════════════════════════ -->
+    <nav id="dock" aria-label="Dock">
+      <div class="di" data-win="about">
+        <div class="di-icon"><img src="assets/icons/profile.png" alt="Profile" width="30" height="30" draggable="false"></div>
+        <span class="di-dot" id="dot-about"></span>
+        <span class="di-label mono" aria-hidden="true" data-i18n="dock.profile">Profile</span>
+      </div>
+      <div class="di" data-win="skills">
+        <div class="di-icon"><img src="assets/icons/skills.png" alt="Skills" width="30" height="30" draggable="false"></div>
+        <span class="di-dot" id="dot-skills"></span>
+        <span class="di-label mono" aria-hidden="true" data-i18n="dock.skills">Skills</span>
+      </div>
+      <div class="di" data-win="certs">
+        <div class="di-icon"><img src="assets/icons/certifications.png" alt="Certifications" width="30" height="30" draggable="false"></div>
+        <span class="di-dot" id="dot-certs"></span>
+        <span class="di-label mono" aria-hidden="true" data-i18n="dock.certs">Certs</span>
+      </div>
+      <div class="di" data-win="experience">
+        <div class="di-icon"><img src="assets/icons/experience.png" alt="Experience" width="30" height="30" draggable="false"></div>
+        <span class="di-dot" id="dot-experience"></span>
+        <span class="di-label mono" aria-hidden="true" data-i18n="dock.experience">Experience</span>
+      </div>
+      <div class="di" data-win="contact">
+        <div class="di-icon"><img src="assets/icons/contact.png" alt="Contact" width="30" height="30" draggable="false"></div>
+        <span class="di-dot" id="dot-contact"></span>
+        <span class="di-label mono" aria-hidden="true" data-i18n="dock.contact">Contact</span>
+      </div>
+      <div class="dock-sep" aria-hidden="true"></div>
+      <a href="assets/CV_David_Alvarez.pdf" download class="di" title="Download CV">
+        <div class="di-icon"><img src="assets/icons/cv.png" alt="CV" width="30" height="30" draggable="false"></div>
+        <span class="di-label mono" aria-hidden="true">CV</span>
+      </a>
+    </nav>
+
+  </div><!-- /desktop -->
+
+  <!-- Right-click context menu -->
+  <div id="ctx-menu" role="menu" aria-label="Desktop menu">
+    <div class="ctx-item" data-action="terminal" role="menuitem">
+      <i class="fas fa-terminal"></i> New Terminal Window
+    </div>
+    <div class="ctx-item" data-action="spotlight" role="menuitem">
+      <i class="fas fa-magnifying-glass"></i> Spotlight Search
+      <span class="ctx-shortcut">⌘K</span>
+    </div>
+    <div class="ctx-sep"></div>
+    <div class="ctx-item" data-action="about" role="menuitem">
+      <i class="fas fa-id-badge"></i> Open Profile
+    </div>
+    <div class="ctx-item" data-action="skills" role="menuitem">
+      <i class="fas fa-network-wired"></i> Open Skills
+    </div>
+    <div class="ctx-item" data-action="projects" role="menuitem">
+      <i class="fas fa-folder-open"></i> Open Projects
+    </div>
+    <div class="ctx-sep"></div>
+    <div class="ctx-item" data-action="wallpaper" role="menuitem">
+      <i class="fas fa-image"></i> Change Wallpaper
+    </div>
+    <div class="ctx-item" data-action="sysinfo" role="menuitem">
+      <i class="fas fa-microchip"></i> About This System
+    </div>
+  </div>
+
+  <!-- Wallpaper picker -->
+  <div id="wp-picker" role="dialog" aria-label="Choose wallpaper" aria-hidden="true">
+    <div id="wp-picker-head">
+      <span>Choose Wallpaper</span>
+      <button id="wp-picker-close" aria-label="Close">&#10005;</button>
+    </div>
+    <div id="wp-picker-grid"></div>
+  </div>
+
+  <!-- Dock icon right-click menu -->
+  <div id="dock-ctx-menu" role="menu" aria-label="Dock item menu" aria-hidden="true">
+    <div class="ctx-item" id="dctx-open" role="menuitem" tabindex="-1">
+      <i class="fas fa-arrow-up-right-from-square"></i> Open
+    </div>
+    <div class="ctx-sep"></div>
+    <div class="ctx-item" id="dctx-info" role="menuitem" tabindex="-1">
+      <i class="fas fa-circle-info"></i> Get Info
+    </div>
+  </div>
+
+  <!-- Mobile overlay -->
+  <div id="mobile-overlay" aria-modal="true" role="dialog" aria-label="Desktop required">
+    <div class="mob-wrap">
+      <div class="mob-bar">
+        <span class="mob-dot" style="background:#ff5f57"></span>
+        <span class="mob-dot" style="background:#febc2e"></span>
+        <span class="mob-dot" style="background:#28c840"></span>
+        <span class="mob-bar-title mono">da-os — bash — 80×24</span>
+      </div>
+      <div class="mob-body mono">
+        <div class="mob-line"><span class="mob-ps">david@DA-OS:~$</span> <span class="mob-cmd">syscheck --display</span></div>
+        <div class="mob-line mob-dim">Checking environment…</div>
+        <div class="mob-line mob-dim">Screen width: <span id="mob-width"></span>px · Required: ≥1024px</div>
+        <div class="mob-line">&nbsp;</div>
+        <div class="mob-line mob-warn">[!] Desktop environment required.</div>
+        <div class="mob-line">&nbsp;</div>
+        <div class="mob-line">DA.OS is designed for desktop.</div>
+        <div class="mob-line">Open on a laptop or desktop</div>
+        <div class="mob-line">for the full experience.</div>
+        <div class="mob-line">&nbsp;</div>
+        <div class="mob-line mob-dim">david@DA-OS:~$ <span class="mob-cursor">_</span></div>
+        <button id="mob-continue" class="mob-continue mono">continue anyway →</button>
+      </div>
+    </div>
+  </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked@9/marked.min.js"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
