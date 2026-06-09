@@ -1467,6 +1467,7 @@ function initDragging() {
     });
     chrome.addEventListener('touchstart', e => {
       if (e.target.classList.contains('wb')) return;
+      if (window.matchMedia('(max-width:768px)').matches || window.matchMedia('(pointer:coarse)').matches) return;
       startDrag(e.touches[0].clientX, e.touches[0].clientY);
       e.preventDefault();
     }, { passive:false });
