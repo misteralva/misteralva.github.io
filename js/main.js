@@ -1201,9 +1201,11 @@ function desktopEntrance() {
     }, '-=.18')
     .to('.dh-sub', { opacity:1, duration:.55, ease:'power2.out' }, '-=.28');
 
-  setTimeout(() => openWindow('about'), 1600);
+  if (!window.matchMedia('(max-width:768px)').matches && !window.matchMedia('(pointer:coarse)').matches) {
+    setTimeout(() => openWindow('about'), 1600);
+  }
 
-  
+
   setTimeout(() => {
     gsap.to('#desk-hero', {
       top: '14vh',
