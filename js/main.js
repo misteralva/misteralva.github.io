@@ -14,10 +14,9 @@ let cx = 0, cy = 0, tx = 0, ty = 0;
 document.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
 (function loop() {
   requestAnimationFrame(loop);
-  cx += (tx - cx) * .09;
-  cy += (ty - cy) * .09;
-  cur.style.left = cx + 'px';
-  cur.style.top  = cy + 'px';
+  cx += (tx - cx) * .18;
+  cy += (ty - cy) * .18;
+  cur.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
 })();
 function addHover(els) {
   els.forEach(el => {
@@ -2762,8 +2761,12 @@ function initHeroGlitch() {
     busy = true;
     let frame = 0;
     const TOTAL = 16;
+    let last = 0;
 
-    const iv = setInterval(() => {
+    function tick(now) {
+      if (now - last < 40) { requestAnimationFrame(tick); return; }
+      last = now;
+
       const t = frame / TOTAL;
       spans.forEach(el => {
         if (Math.random() < (1 - t * 0.55)) {
@@ -2777,7 +2780,6 @@ function initHeroGlitch() {
       });
 
       if (++frame >= TOTAL) {
-        clearInterval(iv);
         spans.forEach((el, i) => {
           setTimeout(() => {
             el.textContent      = ORIG[i];
@@ -2787,9 +2789,12 @@ function initHeroGlitch() {
             if (i === spans.length - 1) busy = false;
           }, i * 28);
         });
+        return;
       }
-    }, 40);
+      requestAnimationFrame(tick);
+    }
 
+    requestAnimationFrame(tick);
     setTimeout(glitch, 7000);
   }
 
