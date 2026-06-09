@@ -1,0 +1,19 @@
+{
+  "name": "David Alvarez — Systems & Networks",
+  "short_name": "DA.",
+  "description": "IT Systems & Networks Admin · Barcelona",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#09090f",
+  "theme_color": "#09090f",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
