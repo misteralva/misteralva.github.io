@@ -352,7 +352,7 @@ export function initScene() {
   
   canvas.addEventListener('wheel', e => {
     e.preventDefault();
-    scrollVel = THREE.MathUtils.clamp(scrollVel + e.deltaY * 0.006, -3, 3);
+    scrollVel = THREE.MathUtils.clamp(scrollVel + e.deltaY * 0.003, -3, 3);
   }, { passive:false });
 
   
