@@ -1510,7 +1510,7 @@ function initDragging() {
   };
 
   document.addEventListener('mousemove', e => move(e.clientX, e.clientY));
-  document.addEventListener('touchmove', e => { move(e.touches[0].clientX, e.touches[0].clientY); e.preventDefault(); }, { passive:false });
+  document.addEventListener('touchmove', e => { if (!dragging) return; move(e.touches[0].clientX, e.touches[0].clientY); e.preventDefault(); }, { passive:false });
   document.addEventListener('mouseup',  end);
   document.addEventListener('touchend', end);
 
