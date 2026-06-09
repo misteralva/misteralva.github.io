@@ -1255,7 +1255,7 @@ body:not(:hover) #cur { opacity:0 }
   .win-sidebar .ws-item { flex-direction:row; white-space:nowrap; flex-shrink:0; padding:7px 12px }
   .win-sidebar .ws-item span { font-size:.72rem; display:inline }
   .win-sidebar .ws-item i { font-size:.72rem }
-  .win-content { padding:16px 14px; touch-action:pan-y; -webkit-overflow-scrolling:touch }
+  .win-content { padding:16px 14px; touch-action:pan-y; -webkit-overflow-scrolling:touch; overscroll-behavior:contain }
 
   .proj-preview { height:90px }
   .proj-lang-mark { font-size:2.6rem }
