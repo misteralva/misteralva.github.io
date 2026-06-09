@@ -1417,6 +1417,7 @@ function initResize() {
 function initDragging() {
   let dragging = null, ox = 0, oy = 0;
   let _snapZone = null;
+  let _activeDragTouchMove = null;
   const SNAP_PX  = 22;
   const MB_H     = 38;
   const DOCK_H   = 72;
@@ -1469,6 +1470,8 @@ function initDragging() {
       if (e.target.classList.contains('wb')) return;
       if (window.matchMedia('(max-width:768px)').matches || window.matchMedia('(pointer:coarse)').matches) return;
       startDrag(e.touches[0].clientX, e.touches[0].clientY);
+      _activeDragTouchMove = ev => { move(ev.touches[0].clientX, ev.touches[0].clientY); ev.preventDefault(); };
+      document.addEventListener('touchmove', _activeDragTouchMove, { passive: false });
       e.preventDefault();
     }, { passive:false });
   });
@@ -1487,6 +1490,10 @@ function initDragging() {
   };
 
   const end = () => {
+    if (_activeDragTouchMove) {
+      document.removeEventListener('touchmove', _activeDragTouchMove);
+      _activeDragTouchMove = null;
+    }
     hideSnap();
     if (dragging && _snapZone) {
       const W   = window.innerWidth, H = window.innerHeight;
@@ -1511,7 +1518,6 @@ function initDragging() {
   };
 
   document.addEventListener('mousemove', e => move(e.clientX, e.clientY));
-  document.addEventListener('touchmove', e => { if (!dragging) return; move(e.touches[0].clientX, e.touches[0].clientY); e.preventDefault(); }, { passive:false });
   document.addEventListener('mouseup',  end);
   document.addEventListener('touchend', end);
 
