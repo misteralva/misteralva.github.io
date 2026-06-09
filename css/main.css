@@ -1241,8 +1241,21 @@ body:not(:hover) #cur { opacity:0 }
   .proj-grid { grid-template-columns:1fr }
   .skill-logo-grid { gap:6px }
   .skill-item { width:72px; padding:10px 4px 20px }
-  .win-sidebar { width:120px }
-  .win-sidebar .ws-item span { font-size:.72rem }
+  .win-body { flex-direction:column }
+  .win-sidebar {
+    width:100% !important;
+    flex-direction:row;
+    overflow-x:auto; overflow-y:hidden;
+    scrollbar-width:none;
+    border-right:none; border-bottom:1px solid rgba(255,255,255,.06);
+    padding:4px 6px; height:auto; flex-shrink:0;
+  }
+  .win-sidebar::-webkit-scrollbar { display:none }
+  .win-sidebar .ws-sect { display:none }
+  .win-sidebar .ws-item { flex-direction:row; white-space:nowrap; flex-shrink:0; padding:7px 12px }
+  .win-sidebar .ws-item span { font-size:.72rem; display:inline }
+  .win-sidebar .ws-item i { font-size:.72rem }
+  .win-content { padding:16px 14px; touch-action:pan-y; -webkit-overflow-scrolling:touch }
 
   .proj-preview { height:90px }
   .proj-lang-mark { font-size:2.6rem }
