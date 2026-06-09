@@ -16,7 +16,7 @@ document.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; })
   requestAnimationFrame(loop);
   const delta = _curPrev ? Math.min(now - _curPrev, 50) : 16.67;
   _curPrev = now;
-  const f = 1 - Math.pow(0.78, delta / 16.67);
+  const f = 1 - Math.pow(0.5, delta / 16.67);
   cx += (tx - cx) * f;
   cy += (ty - cy) * f;
   cur.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
@@ -2783,19 +2783,13 @@ function initHeroGlitch() {
       });
 
       if (++frame >= TOTAL) {
-        let ri = 0, rl = 0;
-        (function restore(rn) {
-          if (ri >= spans.length) { busy = false; return; }
-          if (rn - rl >= 28) {
-            const el = spans[ri++];
-            el.textContent = ORIG[ri - 1];
-            el.style.color = '';
-            el.style.textShadow = '';
-            el.style.transform = '';
-            rl = rn;
-          }
-          requestAnimationFrame(restore);
-        })();
+        spans.forEach((el, i) => {
+          el.textContent  = ORIG[i];
+          el.style.color      = '';
+          el.style.textShadow = '';
+          el.style.transform  = '';
+        });
+        busy = false;
         return;
       }
       requestAnimationFrame(tick);
