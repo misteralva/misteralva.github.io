@@ -1252,9 +1252,13 @@ body:not(:hover) #cur { opacity:0 }
 }
 
 @media (pointer:coarse) {
-  
+
   * { cursor:auto !important }
   #cur, #trail { display:none !important }
+
+  .wb-r { background:var(--red) }
+  .wb-y { background:var(--yel) }
+  .wb-g { background:var(--grn) }
 
   
   .di-label { display:block !important }
