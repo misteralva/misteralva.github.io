@@ -1192,6 +1192,8 @@ body:not(:hover) #cur { opacity:0 }
 }
 
 @media (max-width:768px) {
+  body { overscroll-behavior: none }
+
   #dock-projects-link { display:flex }
   #gl      { display:none }
   #aurora  { display:none }
@@ -1215,7 +1217,7 @@ body:not(:hover) #cur { opacity:0 }
   .mb-sp-btn { display:flex }
   .mb-lang-btn { display:flex }
 
-  #dock { padding:5px 6px; gap:3px; bottom:12px; border-radius:16px; max-width:calc(100vw - 16px); overflow-x:auto; scrollbar-width:none }
+  #dock { padding:5px 6px; gap:3px; bottom:max(12px, calc(env(safe-area-inset-bottom) + 8px)); border-radius:16px; max-width:calc(100vw - 16px); overflow-x:auto; scrollbar-width:none }
   #dock::-webkit-scrollbar { display:none }
   .di-icon { width:42px; height:42px; border-radius:11px; font-size:.95rem }
   .di-label { display:none }
@@ -1225,7 +1227,7 @@ body:not(:hover) #cur { opacity:0 }
     width:calc(100vw - 16px) !important;
     left:8px !important;
     top:44px !important;
-    height:calc(100dvh - 120px) !important;
+    height:calc(100dvh - max(120px, calc(env(safe-area-inset-bottom) + 112px))) !important;
     max-height:none;
     border-radius:10px;
   }
@@ -1241,7 +1243,15 @@ body:not(:hover) #cur { opacity:0 }
   .proj-grid { grid-template-columns:1fr }
   .skill-logo-grid { gap:6px }
   .skill-item { width:72px; padding:10px 4px 20px }
-  .win-body { flex-direction:column }
+  .win-body { flex-direction:column; position:relative }
+  .win-body::after {
+    content:''; position:absolute;
+    bottom:0; left:0; right:0; height:56px;
+    background:linear-gradient(to bottom, transparent, rgba(9,9,15,.94));
+    pointer-events:none; z-index:5;
+    opacity:0; transition:opacity .25s;
+  }
+  .win-body.has-more::after { opacity:1 }
   .win-sidebar {
     width:100% !important;
     flex-direction:row;
