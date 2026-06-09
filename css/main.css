@@ -731,8 +731,7 @@ body:not(:hover) #cur { opacity:0 }
 .di-icon-kali {
   background: #0f1620;
   border-color: rgba(48,161,78,.3);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50'%3E%3Crect width='50' height='50' rx='10' fill='%230f1620'/%3E%3Ctext x='5' y='34' font-family='monospace' font-size='22' fill='%2330a14e'%3E%3E_%3C/text%3E%3C/svg%3E");
-  background-size: cover;
+  color: #30a14e;
 }
 #dock-projects-link:hover .di-icon-kali { border-color:rgba(48,161,78,.7); }
 
