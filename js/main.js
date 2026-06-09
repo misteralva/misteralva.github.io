@@ -1255,24 +1255,33 @@ function openWindow(id) {
   winState[id].open = true;
 
   
-  const dockItem = document.querySelector(`.di[data-win="${id}"]`);
-  const dr = dockItem ? dockItem.getBoundingClientRect() : null;
-  const dockCX = dr ? dr.left + dr.width  / 2 : x + w / 2;
-  const dockCY = dr ? dr.top  + dr.height / 2 : window.innerHeight - 50;
+  const isMob = window.matchMedia('(max-width:768px)').matches || window.matchMedia('(pointer:coarse)').matches;
+  if (isMob) {
+    gsap.set(win, { y: '75%', opacity: 0 });
+    gsap.to(win, {
+      y: 0, opacity: 1, duration: 0.38, ease: 'power3.out',
+      onComplete() { gsap.set(win, { clearProps: 'y,opacity' }); }
+    });
+  } else {
+    const dockItem = document.querySelector(`.di[data-win="${id}"]`);
+    const dr = dockItem ? dockItem.getBoundingClientRect() : null;
+    const dockCX = dr ? dr.left + dr.width  / 2 : x + w / 2;
+    const dockCY = dr ? dr.top  + dr.height / 2 : window.innerHeight - 50;
 
-  const originX = ((dockCX - x) / w * 100).toFixed(1);
-  const originY = ((dockCY - y) / h * 100).toFixed(1);
+    const originX = ((dockCX - x) / w * 100).toFixed(1);
+    const originY = ((dockCY - y) / h * 100).toFixed(1);
 
-  gsap.set(win, { transformOrigin: `${originX}% ${originY}%`, scale: 0.06, opacity: 0, y: 18, filter: 'blur(8px)' });
-  gsap.to(win, {
-    scale: 1, opacity: 1, y: 0, filter: 'blur(0px)',
-    duration: 0.52, ease: 'back.out(1.55)',
-    onComplete() {
-      gsap.set(win, { transformOrigin: '50% 50%', clearProps: 'scale,opacity,y,filter' });
-      win.classList.add('opening');
-      setTimeout(() => win.classList.remove('opening'), 560);
-    }
-  });
+    gsap.set(win, { transformOrigin: `${originX}% ${originY}%`, scale: 0.06, opacity: 0, y: 18, filter: 'blur(8px)' });
+    gsap.to(win, {
+      scale: 1, opacity: 1, y: 0, filter: 'blur(0px)',
+      duration: 0.52, ease: 'back.out(1.55)',
+      onComplete() {
+        gsap.set(win, { transformOrigin: '50% 50%', clearProps: 'scale,opacity,y,filter' });
+        win.classList.add('opening');
+        setTimeout(() => win.classList.remove('opening'), 560);
+      }
+    });
+  }
 
   bringToFront(id);
   setDockActive(id, true);
@@ -1292,14 +1301,26 @@ function closeWindow(id) {
   if (!win || !winState[id]?.open) return;
   if (id === 'terminal') stopTerminal();
   if (id === 'skills')   stopSkillsConstellation();
-  gsap.to(win, {
-    opacity:0, scale:.91, y:8, filter:'blur(3px)', duration:.22, ease:'power2.in',
-    onComplete() {
-      win.classList.remove('open');
-      winState[id].open = false;
-      gsap.set(win, { filter:'none', clearProps:'filter' });
-    }
-  });
+  const isMobClose = window.matchMedia('(max-width:768px)').matches || window.matchMedia('(pointer:coarse)').matches;
+  if (isMobClose) {
+    gsap.to(win, {
+      y: '90%', opacity: 0, duration: .26, ease: 'power3.in',
+      onComplete() {
+        win.classList.remove('open');
+        winState[id].open = false;
+        gsap.set(win, { clearProps: 'all' });
+      }
+    });
+  } else {
+    gsap.to(win, {
+      opacity:0, scale:.91, y:8, filter:'blur(3px)', duration:.22, ease:'power2.in',
+      onComplete() {
+        win.classList.remove('open');
+        winState[id].open = false;
+        gsap.set(win, { filter:'none', clearProps:'filter' });
+      }
+    });
+  }
   setDockActive(id, false);
 }
 
@@ -3652,10 +3673,49 @@ runLoader(() => {
     initContextMenu();
     initWeather();
     initCalendar();
+    initScrollIndicators();
+    initMobileKeyboardFix();
     initWallpaperPicker();
     if (window._lang === 'es') applyLang('es');
   });
 });
+
+function initScrollIndicators() {
+  document.querySelectorAll('.win-content').forEach(content => {
+    const body = content.closest('.win-body');
+    if (!body) return;
+    const check = () => {
+      const hasMore = content.scrollHeight > content.clientHeight + 4 &&
+                      content.scrollTop + content.clientHeight < content.scrollHeight - 8;
+      body.classList.toggle('has-more', hasMore);
+    };
+    content.addEventListener('scroll', check, { passive: true });
+    const win = content.closest('.win');
+    if (win) new MutationObserver(() => setTimeout(check, 60)).observe(win, { attributes: true, attributeFilter: ['class'] });
+  });
+}
+
+function initMobileKeyboardFix() {
+  if (!window.matchMedia('(pointer:coarse)').matches) return;
+  document.addEventListener('focusin', e => {
+    const el = e.target;
+    if ((el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') && el.closest('.win')) {
+      setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'center' }), 350);
+    }
+  });
+  if (!('visualViewport' in window)) return;
+  window.visualViewport.addEventListener('resize', () => {
+    const vvh = window.visualViewport.height;
+    const kbH = window.innerHeight - vvh;
+    document.querySelectorAll('.win.open').forEach(w => {
+      if (kbH > 80) {
+        w.style.setProperty('height', `${vvh - 60}px`, 'important');
+      } else {
+        w.style.removeProperty('height');
+      }
+    });
+  });
+}
 
 function initCalendar() {
   const cal    = document.getElementById('mb-calendar');
