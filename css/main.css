@@ -1309,11 +1309,11 @@ a:focus:not(:focus-visible),button:focus:not(:focus-visible) { outline:none }
   pointer-events: none;
   overflow: hidden;
   contain: paint;
+  filter: blur(40px);
 }
 .aurora-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(50px);
   opacity: 0;
   transition: opacity 2.5s ease;
   will-change: transform;
