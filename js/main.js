@@ -298,6 +298,10 @@ function initSpotlight() {
 
   document.addEventListener('keydown', e => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); sp.classList.contains('open') ? hide() : show(); return; }
+    if (e.key === 'Escape' && !sp.classList.contains('open')) {
+      const focused = document.querySelector('.win.focused');
+      if (focused) { const id = focused.id.replace('win-', ''); closeWindow(id); return; }
+    }
     if (!sp.classList.contains('open')) return;
     if (e.key === 'Escape')   { hide(); return; }
     if (e.key === 'ArrowDown'){ e.preventDefault(); setActive(activeIdx + 1); return; }
