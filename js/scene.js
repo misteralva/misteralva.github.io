@@ -20,6 +20,7 @@ let renderer, scene, camera, model, accentLight, ambientLight, keyLight;
 let dust, dustPositions;
 let mx = 0, my = 0;
 let clock = 0;
+let _lastFrame = 0;
 let isEntering = false;
 let pcScreenMesh = null;
 
@@ -314,7 +315,7 @@ export function initScene() {
 
   renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
   renderer.setClearColor(0x000000, 0);
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
   const iw = canvas.offsetWidth  || window.innerWidth;
   const ih = canvas.offsetHeight || window.innerHeight;
   renderer.setSize(iw, ih);
@@ -550,12 +551,15 @@ function loadModel() {
 }
 
 
-function renderLoop() {
+function renderLoop(now) {
   requestAnimationFrame(renderLoop);
   if (!renderer) return;
-  clock += 0.016;
+  const delta = _lastFrame ? Math.min((now - _lastFrame) / 1000, 0.05) : 0.01667;
+  _lastFrame = now;
+  clock += delta;
+  const lf = t => 1 - Math.pow(1 - t, delta / 0.01667);
 
-  
+
   if (scrollVel !== 0) {
     const toTarget = new THREE.Vector3().subVectors(camTarget, camPos).normalize();
     camPos.addScaledVector(toTarget, scrollVel);
@@ -566,22 +570,22 @@ function renderLoop() {
     else if (dist > 16) camPos.addScaledVector(toTarget, dist - 16);
   }
 
-  
+
   if (spotlightMode && spotlight) {
     spotlight.position.set(mx * 4.5, -my * 2.5 + 4, 5.5);
     spotlight.target.position.set(mx * 1.8, -my * 1, 0);
     spotlight.target.updateMatrixWorld();
   }
 
-  
+
   if (model) {
-    model.rotation.y += (mx * 0.07 - model.rotation.y) * 0.025;
-    model.rotation.x += (my * 0.025 - model.rotation.x) * 0.025;
+    model.rotation.y += (mx * 0.07 - model.rotation.y) * lf(0.025);
+    model.rotation.x += (my * 0.025 - model.rotation.x) * lf(0.025);
   }
 
   if (!isEntering) {
     _driftTarget.set(camPos.x + mx * 0.55, camPos.y - my * 0.28, camPos.z);
-    camera.position.lerp(_driftTarget, 0.048);
+    camera.position.lerp(_driftTarget, lf(0.048));
     _lookTarget.set(camTarget.x + mx * 0.14, camTarget.y - my * 0.07, camTarget.z);
     camera.lookAt(_lookTarget);
   }
