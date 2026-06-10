@@ -570,7 +570,11 @@ function renderLoop(now) {
   _frameCount++;
   if (_frameCount === 1) _startTime = now;
   if (!_dprAdjusted && _frameCount === 60) {
-    if (now - _startTime > 2000) renderer.setPixelRatio(1.0);
+    const elapsed = now - _startTime;
+    if (elapsed > 2000) {
+      renderer.setPixelRatio(Math.min(devicePixelRatio, 0.75));
+      document.body.classList.add('perf-lite');
+    }
     _dprAdjusted = true;
   }
   const delta = _lastFrame ? Math.min((now - _lastFrame) / 1000, 0.05) : 0.01667;
