@@ -3,6 +3,11 @@ import { initScene } from './scene.js';
 window._bootTime = Date.now();
 window._lang     = localStorage.getItem('da-lang') || 'en';
 
+// Immediate lite mode: ≤2 cores = very old CPU, or ≤2 GB RAM = clearly underpowered
+if ((navigator.hardwareConcurrency || 8) <= 2 || (navigator.deviceMemory || 8) <= 2) {
+  document.body.classList.add('perf-lite');
+}
+
 const WIN_W = { about:700, skills:700, certs:680, experience:700, projects:880, contact:700, 'project-detail':640, terminal:680 };
 const WIN_H = { about:480, skills:500, certs:420, experience:520, projects:560, contact:520, 'project-detail':440, terminal:440 };
 
