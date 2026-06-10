@@ -21,6 +21,9 @@ let dust, dustPositions;
 let mx = 0, my = 0;
 let clock = 0;
 let _lastFrame = 0;
+let _frameCount = 0;
+let _paused = false;
+document.addEventListener('visibilitychange', () => { _paused = document.hidden; });
 let isEntering = false;
 let pcScreenMesh = null;
 
@@ -294,7 +297,7 @@ function orbitCamera(dTheta, dPhi) {
 }
 
 function createDust() {
-  const count = 90;
+  const count = 50;
   const pos   = new Float32Array(count * 3);
   for (let i = 0; i < count; i++) {
     pos[i*3]   = (Math.random() - .5) * 4.5;
@@ -313,9 +316,10 @@ export function initScene() {
   const canvas = document.getElementById('gl');
   if (!canvas) return;
 
-  renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
+  renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: true, powerPreference: 'high-performance' });
   renderer.setClearColor(0x000000, 0);
   renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+  renderer.shadowMap.enabled = false;
   const iw = canvas.offsetWidth  || window.innerWidth;
   const ih = canvas.offsetHeight || window.innerHeight;
   renderer.setSize(iw, ih);
@@ -553,7 +557,8 @@ function loadModel() {
 
 function renderLoop(now) {
   requestAnimationFrame(renderLoop);
-  if (!renderer) return;
+  if (!renderer || _paused) return;
+  _frameCount++;
   const delta = _lastFrame ? Math.min((now - _lastFrame) / 1000, 0.05) : 0.01667;
   _lastFrame = now;
   clock += delta;
@@ -591,7 +596,7 @@ function renderLoop(now) {
   }
 
   
-  if (hotspots.length && renderer) {
+  if (hotspots.length && renderer && _frameCount % 3 === 0) {
     const W = renderer.domElement.offsetWidth;
     const H = renderer.domElement.offsetHeight;
     hotspots.forEach(h => {
@@ -617,11 +622,11 @@ function renderLoop(now) {
   }
 
   
-  if (dust && dustPositions) {
+  if (dust && dustPositions && _frameCount % 2 === 0) {
     const pa = dust.geometry.attributes.position;
     for (let i = 0; i < pa.count; i++) {
-      pa.array[i*3+1] += Math.sin(clock * 0.5 + i * 1.3) * 0.00025;
-      pa.array[i*3]   += Math.cos(clock * 0.4 + i * 1.1) * 0.00015;
+      pa.array[i*3+1] += Math.sin(clock * 0.5 + i * 1.3) * 0.0005;
+      pa.array[i*3]   += Math.cos(clock * 0.4 + i * 1.1) * 0.0003;
     }
     pa.needsUpdate = true;
     dust.material.color.setHex(presetIdx === 0 ? 0x64ffda : PRESETS[presetIdx].accent[0]);
