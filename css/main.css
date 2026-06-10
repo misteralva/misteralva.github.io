@@ -20,11 +20,10 @@
   --fb: 'Inter', system-ui, sans-serif;
   --fm: 'JetBrains Mono', monospace;
   --ease: cubic-bezier(.16,1,.3,1);
-  --blur: blur(24px) saturate(160%);
+  --blur: blur(14px) saturate(150%);
 }
 
 *,*::before,*::after { box-sizing:border-box; margin:0; padding:0 }
-:root { transition:--acc .6s, --bdr .6s, --acc1 .6s }
 html,body { width:100%; height:100%; overflow:hidden }
 body { background:var(--navy); color:var(--w); font-family:var(--fb); font-size:1rem; line-height:1.75 }
 a { color:inherit; text-decoration:none }
@@ -748,7 +747,7 @@ a:focus:not(:focus-visible),button:focus:not(:focus-visible) { outline:none }
   color:var(--dim); white-space:nowrap;
   position:absolute; top:-22px;
   background:var(--glass2);
-  backdrop-filter:blur(10px);
+  backdrop-filter:blur(6px);
   border:1px solid var(--bdr2);
   border-radius:5px;
   padding:3px 8px;
@@ -1309,11 +1308,12 @@ a:focus:not(:focus-visible),button:focus:not(:focus-visible) { outline:none }
   z-index: 2;
   pointer-events: none;
   overflow: hidden;
+  contain: paint;
 }
 .aurora-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(100px);
+  filter: blur(50px);
   opacity: 0;
   transition: opacity 2.5s ease;
   will-change: transform;
@@ -1561,7 +1561,7 @@ a:focus:not(:focus-visible),button:focus:not(:focus-visible) { outline:none }
   display: flex; align-items: flex-start; gap: 12px;
   padding: 12px 14px 12px 12px;
   background: rgba(14,14,22,.96);
-  backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255,255,255,.10);
   border-radius: 12px;
   box-shadow: 0 8px 32px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.12);
@@ -1765,8 +1765,8 @@ a:focus:not(:focus-visible),button:focus:not(:focus-visible) { outline:none }
   position: fixed;
   z-index: 9900;
   background: rgba(16,16,24,.92);
-  backdrop-filter: blur(28px);
-  -webkit-backdrop-filter: blur(28px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border: 1px solid rgba(255,255,255,.1);
   border-radius: 10px;
   padding: 5px;
@@ -1818,8 +1818,8 @@ a:focus:not(:focus-visible),button:focus:not(:focus-visible) { outline:none }
   left: 50%;
   transform: translate(-50%, -50%);
   background: rgba(14,14,22,.96);
-  backdrop-filter: blur(32px);
-  -webkit-backdrop-filter: blur(32px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255,255,255,.12);
   border-radius: 16px;
   padding: 16px;
@@ -1894,8 +1894,8 @@ a:focus:not(:focus-visible),button:focus:not(:focus-visible) { outline:none }
   position: fixed;
   z-index: 9900;
   background: rgba(16,16,24,.92);
-  backdrop-filter: blur(28px);
-  -webkit-backdrop-filter: blur(28px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border: 1px solid rgba(255,255,255,.1);
   border-radius: 10px;
   padding: 5px;
@@ -1920,8 +1920,8 @@ a:focus:not(:focus-visible),button:focus:not(:focus-visible) { outline:none }
   top: 36px;
   right: 6px;
   background: rgba(14,14,22,.96);
-  backdrop-filter: blur(32px);
-  -webkit-backdrop-filter: blur(32px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255,255,255,.11);
   border-radius: 14px;
   padding: 14px 12px 12px;
