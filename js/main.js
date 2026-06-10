@@ -10,17 +10,9 @@ let zTop = 100;
 const winState = {};
 
 const cur = document.getElementById('cur');
-let cx = 0, cy = 0, tx = 0, ty = 0, _curPrev = 0;
-document.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
-(function loop(now) {
-  requestAnimationFrame(loop);
-  const delta = _curPrev ? Math.min(now - _curPrev, 50) : 16.67;
-  _curPrev = now;
-  const f = 1 - Math.pow(0.5, delta / 16.67);
-  cx += (tx - cx) * f;
-  cy += (ty - cy) * f;
-  cur.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
-})();
+document.addEventListener('mousemove', e => {
+  cur.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
+});
 function addHover(els) {
   els.forEach(el => {
     el.addEventListener('mouseenter', () => document.body.classList.add('cur-lg'));
