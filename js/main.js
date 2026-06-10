@@ -11,6 +11,27 @@ const winState = {};
 
 function addHover() {}
 
+(function initCursor() {
+  if (window.matchMedia('(pointer:coarse)').matches) return;
+  const c = document.createElement('canvas');
+  c.width = 14; c.height = 21;
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = '#000';
+  ctx.beginPath();
+  ctx.moveTo(1,1);  ctx.lineTo(1,17);   ctx.lineTo(4.5,13);
+  ctx.lineTo(7.3,19.5); ctx.lineTo(9.5,18.5); ctx.lineTo(6.7,12);
+  ctx.lineTo(11.5,12); ctx.closePath(); ctx.fill();
+  ctx.fillStyle = '#fff';
+  ctx.beginPath();
+  ctx.moveTo(2,3);  ctx.lineTo(2,15.5); ctx.lineTo(5,12.2);
+  ctx.lineTo(7.5,17.5); ctx.lineTo(8.5,17); ctx.lineTo(6,11.5);
+  ctx.lineTo(10.5,11.5); ctx.closePath(); ctx.fill();
+  const url = `url("${c.toDataURL()}") 1 1, default`;
+  const s = document.createElement('style');
+  s.textContent = `* { cursor: ${url} } a,button,[role=button],.di,.wb,.mb-item,label[for],.proj-card { cursor: pointer }`;
+  document.head.appendChild(s);
+})();
+
 async function openProjectDetail(repo, lc) {
   document.getElementById('pd-win-title').textContent =
     repo.name.toLowerCase().replace(/-/g, ' ') + '.md';
