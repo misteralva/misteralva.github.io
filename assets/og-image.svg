@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#0b0b12"/>
+
+  <radialGradient id="g1" cx="15%" cy="55%" r="52%">
+    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.06"/>
+    <stop offset="100%" stop-color="#0b0b12" stop-opacity="0"/>
+  </radialGradient>
+  <rect width="1200" height="630" fill="url(#g1)"/>
+
+  <line x1="80" y1="178" x2="1120" y2="178" stroke="#ffffff" stroke-opacity="0.12" stroke-width="1"/>
+  <line x1="80" y1="460" x2="1120" y2="460" stroke="#ffffff" stroke-opacity="0.07" stroke-width="1"/>
+
+  <text x="80" y="153" font-family="'Courier New',Courier,monospace" font-size="15" letter-spacing="5" fill="#ffffff" opacity="0.45">IT SYSTEMS · NETWORKING</text>
+
+  <text x="80" y="335" font-family="Georgia,'Times New Roman',serif" font-size="108" font-style="italic" fill="#ffffff" opacity="0.92" letter-spacing="-2">David Alvarez</text>
+
+  <text x="84" y="410" font-family="Georgia,'Times New Roman',serif" font-size="66" font-style="italic" fill="#ffffff" opacity="0.20">Portfolio</text>
+
+  <text x="960" y="390" font-family="Georgia,'Times New Roman',serif" font-size="180" font-style="italic" fill="#ffffff" opacity="0.04">DA.</text>
+
+  <text x="80" y="585" font-family="'Courier New',Courier,monospace" font-size="15" letter-spacing="3" fill="#ffffff" opacity="0.35">Portfolio · github.com/misteralva</text>
+</svg>
