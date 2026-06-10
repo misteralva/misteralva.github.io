@@ -104,7 +104,7 @@ function initCursorTrail() {
   ];
 
   let lastT = 0;
-  const GAP = 72;
+  const GAP = 100;
 
   document.addEventListener('mousemove', e => {
     const now = Date.now();
@@ -3233,18 +3233,20 @@ function initStarfield() {
       y:     Math.random() * H,
       char:  rndChar(),
       speed: .12 + Math.random() * .3,
-      
+
       alpha: Math.random() * .12,
       teal:  Math.random() < .14,
-      
+
       ttl:   Math.floor(Math.random() * 180),
     }));
   }
 
   ctx.font = `${SIZE}px 'JetBrains Mono', monospace`;
 
+  let _sfTick = 0;
   function draw() {
     requestAnimationFrame(draw);
+    if (++_sfTick % 3 !== 0) return;
     ctx.clearRect(0, 0, W, H);
     ctx.font = `${SIZE}px 'JetBrains Mono', monospace`;
 
