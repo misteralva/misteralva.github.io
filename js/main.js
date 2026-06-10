@@ -9,17 +9,7 @@ const WIN_H = { about:480, skills:500, certs:420, experience:520, projects:560, 
 let zTop = 100;
 const winState = {};
 
-const cur = document.getElementById('cur');
-document.addEventListener('mousemove', e => {
-  cur.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
-});
-function addHover(els) {
-  els.forEach(el => {
-    el.addEventListener('mouseenter', () => document.body.classList.add('cur-lg'));
-    el.addEventListener('mouseleave', () => document.body.classList.remove('cur-lg'));
-  });
-}
-addHover(document.querySelectorAll('a,button,.di,.wb,.mb-item'));
+function addHover() {}
 
 async function openProjectDetail(repo, lc) {
   document.getElementById('pd-win-title').textContent =
@@ -2808,11 +2798,6 @@ function initClickRipple() {
   });
 
   
-  const curEl = document.getElementById('cur');
-  if (curEl) {
-    document.addEventListener('mousedown', () => curEl.classList.add('clicking'));
-    document.addEventListener('mouseup',   () => curEl.classList.remove('clicking'));
-  }
 }
 
 function initWindowTilt() {
