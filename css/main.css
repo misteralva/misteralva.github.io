@@ -30,7 +30,7 @@ body { background:var(--navy); color:var(--w); font-family:var(--fb); font-size:
 a { color:inherit; text-decoration:none }
 ul { list-style:none }
 button { font-family:var(--fb); background:none; border:none }
-* { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='21' viewBox='0 0 14 21'><path fill='%23000' d='M1,1 L1,17 L4.5,13 L7.3,19.5 L9.5,18.5 L6.7,12 L11.5,12 Z'/><path fill='%23fff' d='M2,3 L2,15.5 L5,12.2 L7.5,17.5 L8.5,17 L6,11.5 L10.5,11.5 Z'/></svg>") 1 1, default }
+* { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='21' viewBox='0 0 14 21'%3E%3Cpath fill='%23000' d='M1,1 L1,17 L4.5,13 L7.3,19.5 L9.5,18.5 L6.7,12 L11.5,12 Z'/%3E%3Cpath fill='%23fff' d='M2,3 L2,15.5 L5,12.2 L7.5,17.5 L8.5,17 L6,11.5 L10.5,11.5 Z'/%3E%3C/svg%3E") 1 1, default }
 a, button, [role=button], .di, .wb, .mb-item, label[for], .proj-card { cursor: pointer }
 .mono { font-family:var(--fm) }
 em { font-style:italic }
