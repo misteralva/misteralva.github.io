@@ -569,9 +569,12 @@ function renderLoop(now) {
   if (!renderer || _paused) return;
   _frameCount++;
   if (_frameCount === 1) _startTime = now;
-  if (!_dprAdjusted && _frameCount === 60) {
+  if (!_dprAdjusted && _frameCount === 120) {
     const elapsed = now - _startTime;
-    if (elapsed > 2000) {
+    // elapsed > 3000: at 60Hz rAF fires every 16ms → 120 frames = ~2s (never triggers).
+    // On a backed-up GPU rAF slips to 20–30fps → 120 frames = 4–6s → triggers.
+    // elapsed < 30000: ignore if tab was hidden during measurement.
+    if (elapsed > 3000 && elapsed < 30000) {
       renderer.setPixelRatio(Math.min(devicePixelRatio, 0.75));
       document.body.classList.add('perf-lite');
     }
