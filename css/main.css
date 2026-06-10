@@ -2112,3 +2112,22 @@ a:focus:not(:focus-visible),button:focus:not(:focus-visible) { outline:none }
   border-color: rgba(232,230,240,.38);
   color: #e8e6f0;
 }
+
+/* ── Lite mode (auto-applied on slow GPUs) ──────────── */
+.perf-lite .win,
+.perf-lite #dock,
+.perf-lite #menubar,
+.perf-lite .sp-backdrop,
+.perf-lite .sp-modal,
+.perf-lite #ctx-menu,
+.perf-lite #dock-ctx-menu,
+.perf-lite #mb-calendar,
+.perf-lite #wp-picker {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.perf-lite .win      { background: rgba(11,11,18,.96) !important; }
+.perf-lite #dock     { background: rgba(11,11,18,.92) !important; }
+.perf-lite #menubar  { background: rgba(8,8,14,.98)   !important; }
+.perf-lite #aurora   { display: none !important; }
+.perf-lite #grain    { display: none !important; }
