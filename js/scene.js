@@ -23,6 +23,9 @@ let clock = 0;
 let _lastFrame = 0;
 let _frameCount = 0;
 let _paused = false;
+let _lastInteract = performance.now();
+let _dprAdjusted = false;
+let _startTime = 0;
 document.addEventListener('visibilitychange', () => { _paused = document.hidden; });
 let isEntering = false;
 let pcScreenMesh = null;
@@ -334,13 +337,9 @@ export function initScene() {
   camera.position.copy(camPos);
   camera.lookAt(camTarget);
 
-  ambientLight = new THREE.AmbientLight(0xffffff, 2.5); scene.add(ambientLight);
+  ambientLight = new THREE.AmbientLight(0xffffff, 3.5); scene.add(ambientLight);
   keyLight = new THREE.DirectionalLight(0xffffff, 3.0);
   keyLight.position.set(5, 8, 6); scene.add(keyLight);
-  const fill = new THREE.DirectionalLight(0xd0e8ff, 1.2);
-  fill.position.set(-5, 3, 4); scene.add(fill);
-  const top = new THREE.DirectionalLight(0xffffff, 1.5);
-  top.position.set(0, 10, 0); scene.add(top);
   accentLight = new THREE.PointLight(0x64ffda, 2.6, 22);
   accentLight.position.set(-2, 1, 4); scene.add(accentLight);
   const rimLight = new THREE.PointLight(0x64ffda, 1.4, 16);
@@ -559,11 +558,16 @@ function renderLoop(now) {
   requestAnimationFrame(renderLoop);
   if (!renderer || _paused) return;
   _frameCount++;
+  if (_frameCount === 1) _startTime = now;
+  if (!_dprAdjusted && _frameCount === 60) {
+    if (now - _startTime > 2000) renderer.setPixelRatio(1.0);
+    _dprAdjusted = true;
+  }
   const delta = _lastFrame ? Math.min((now - _lastFrame) / 1000, 0.05) : 0.01667;
   _lastFrame = now;
   clock += delta;
   const lf = t => 1 - Math.pow(1 - t, delta / 0.01667);
-
+  const idle = (now - _lastInteract) > 3000;
 
   if (scrollVel !== 0) {
     const toTarget = new THREE.Vector3().subVectors(camTarget, camPos).normalize();
@@ -575,27 +579,25 @@ function renderLoop(now) {
     else if (dist > 16) camPos.addScaledVector(toTarget, dist - 16);
   }
 
-
   if (spotlightMode && spotlight) {
     spotlight.position.set(mx * 4.5, -my * 2.5 + 4, 5.5);
     spotlight.target.position.set(mx * 1.8, -my * 1, 0);
     spotlight.target.updateMatrixWorld();
   }
 
-
-  if (model) {
-    model.rotation.y += (mx * 0.07 - model.rotation.y) * lf(0.025);
-    model.rotation.x += (my * 0.025 - model.rotation.x) * lf(0.025);
+  if (!idle) {
+    if (model) {
+      model.rotation.y += (mx * 0.07 - model.rotation.y) * lf(0.025);
+      model.rotation.x += (my * 0.025 - model.rotation.x) * lf(0.025);
+    }
+    if (!isEntering) {
+      _driftTarget.set(camPos.x + mx * 0.55, camPos.y - my * 0.28, camPos.z);
+      camera.position.lerp(_driftTarget, lf(0.048));
+      _lookTarget.set(camTarget.x + mx * 0.14, camTarget.y - my * 0.07, camTarget.z);
+      camera.lookAt(_lookTarget);
+    }
   }
 
-  if (!isEntering) {
-    _driftTarget.set(camPos.x + mx * 0.55, camPos.y - my * 0.28, camPos.z);
-    camera.position.lerp(_driftTarget, lf(0.048));
-    _lookTarget.set(camTarget.x + mx * 0.14, camTarget.y - my * 0.07, camTarget.z);
-    camera.lookAt(_lookTarget);
-  }
-
-  
   if (hotspots.length && renderer && _frameCount % 3 === 0) {
     const W = renderer.domElement.offsetWidth;
     const H = renderer.domElement.offsetHeight;
@@ -613,16 +615,14 @@ function renderLoop(now) {
     });
   }
 
-  
-  if (accentLight) {
+  if (accentLight && _frameCount % 6 === 0) {
     const p = PRESETS[presetIdx];
     accentLight.intensity  = p.accent[1] * (0.85 + Math.sin(clock * 0.7) * 0.15);
     accentLight.position.x = -2 + Math.sin(clock * 0.35) * 0.4;
     accentLight.position.z =  4 + Math.cos(clock * 0.28) * 0.3;
   }
 
-  
-  if (dust && dustPositions && _frameCount % 2 === 0) {
+  if (dust && dustPositions && !idle && _frameCount % 2 === 0) {
     const pa = dust.geometry.attributes.position;
     for (let i = 0; i < pa.count; i++) {
       pa.array[i*3+1] += Math.sin(clock * 0.5 + i * 1.3) * 0.0005;
@@ -638,4 +638,7 @@ function renderLoop(now) {
 document.addEventListener('mousemove', e => {
   mx = (e.clientX / window.innerWidth  - .5) * 2;
   my = (e.clientY / window.innerHeight - .5) * 2;
+  _lastInteract = performance.now();
 });
+document.addEventListener('wheel',      () => { _lastInteract = performance.now(); }, { passive: true });
+document.addEventListener('touchstart', () => { _lastInteract = performance.now(); }, { passive: true });
