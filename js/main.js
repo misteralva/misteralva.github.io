@@ -1187,7 +1187,7 @@ function desktopEntrance() {
 
   gsap.set('.dhn', { opacity:1 });
   const letters = [...document.querySelectorAll('.dhl')];
-  gsap.set(letters, { opacity:0, y:'0.65em', rotateX:-22, filter:'blur(10px)' });
+  gsap.set(letters, { opacity:0, y:'0.65em', rotateX:-22, filter:'blur(4px)' });
 
   gsap.timeline({ delay:.35 })
     .to(letters, {
@@ -1211,7 +1211,7 @@ function desktopEntrance() {
     .to('.dh-sub', { opacity:1, duration:.55, ease:'power2.out' }, '-=.28');
 
   if (!window.matchMedia('(max-width:768px)').matches && !window.matchMedia('(pointer:coarse)').matches) {
-    setTimeout(() => openWindow('about'), 1600);
+    setTimeout(() => openWindow('about'), 3000);
   }
 
 
@@ -1280,7 +1280,7 @@ function openWindow(id) {
     const originX = ((dockCX - x) / w * 100).toFixed(1);
     const originY = ((dockCY - y) / h * 100).toFixed(1);
 
-    gsap.set(win, { transformOrigin: `${originX}% ${originY}%`, scale: 0.06, opacity: 0, y: 18, filter: 'blur(8px)' });
+    gsap.set(win, { transformOrigin: `${originX}% ${originY}%`, scale: 0.06, opacity: 0, y: 18, filter: 'blur(4px)' });
     gsap.to(win, {
       scale: 1, opacity: 1, y: 0, filter: 'blur(0px)',
       duration: 0.52, ease: 'back.out(1.55)',
