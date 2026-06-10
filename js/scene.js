@@ -26,6 +26,9 @@ let _paused = false;
 let _lastInteract = performance.now();
 let _dprAdjusted = false;
 let _startTime = 0;
+const _ACTIVE_MS = 1000 / 30;
+const _IDLE_MS   = 1000 / 15;
+let _lastRender  = 0;
 document.addEventListener('visibilitychange', () => { _paused = document.hidden; });
 let isEntering = false;
 let pcScreenMesh = null;
@@ -325,7 +328,7 @@ export function initScene() {
 
   renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: true, powerPreference: 'high-performance' });
   renderer.setClearColor(0x000000, 0);
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 1.0));
   renderer.shadowMap.enabled = false;
   const iw = canvas.offsetWidth  || window.innerWidth;
   const ih = canvas.offsetHeight || window.innerHeight;
@@ -512,6 +515,7 @@ function loadModelFile(file, onDone) {
       const z = size.z*(ts/max)*1.4 + 2;
       camPos.set(0, .5, z); camTarget.set(0, 0, 0);
       defaultCamPos.copy(camPos); defaultCamTarget.copy(camTarget);
+      if (camera) { camera.position.copy(camPos); camera.lookAt(camTarget); }
       model.traverse(child => {
         if (!child.isMesh) return;
         const boost = m => { if (m?.emissiveIntensity !== undefined) m.emissiveIntensity = Math.max(m.emissiveIntensity, 0.35); };
@@ -574,7 +578,6 @@ function renderLoop(now) {
   clock += delta;
   const lf = t => 1 - Math.pow(1 - t, delta / 0.01667);
   const idle = (now - _lastInteract) > 3000;
-  if (idle && _frameCount % 4 !== 0) return;
 
   if (scrollVel !== 0) {
     const toTarget = new THREE.Vector3().subVectors(camTarget, camPos).normalize();
@@ -639,6 +642,9 @@ function renderLoop(now) {
     dust.material.color.setHex(presetIdx === 0 ? 0x64ffda : PRESETS[presetIdx].accent[0]);
   }
 
+  const frameBudget = idle ? _IDLE_MS : _ACTIVE_MS;
+  if (now - _lastRender < frameBudget) return;
+  _lastRender = now;
   renderer.render(scene, camera);
 }
 
