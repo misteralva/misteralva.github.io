@@ -36,6 +36,8 @@ const defaultCamPos    = new THREE.Vector3(0, 1.5, 7);
 const defaultCamTarget = new THREE.Vector3(0, 0, 0);
 
 let isDragging = false, dragX = 0, dragY = 0;
+let _cachedMeshes = null;
+let _canvasW = 0, _canvasH = 0;
 
 let scrollVel = 0;
 const _driftTarget  = new THREE.Vector3();
@@ -77,6 +79,7 @@ export function switchModel(idx) {
 
 function clearModel() {
   if (model) { scene?.remove(model); model = null; }
+  _cachedMeshes = null;
   pcScreenMesh = null;
   if (dust)  { scene?.remove(dust);  dust  = null; }
   explodeData.length = 0;
@@ -199,9 +202,10 @@ function findPCScreen(group) {
 
 function getModelMeshes() {
   if (!model) return [];
-  const meshes = [];
-  model.traverse(c => { if (c.isMesh) meshes.push(c); });
-  return meshes;
+  if (_cachedMeshes) return _cachedMeshes;
+  _cachedMeshes = [];
+  model.traverse(c => { if (c.isMesh) _cachedMeshes.push(c); });
+  return _cachedMeshes;
 }
 
 function setupHotspots(loadedModel) {
@@ -326,6 +330,7 @@ export function initScene() {
   const iw = canvas.offsetWidth  || window.innerWidth;
   const ih = canvas.offsetHeight || window.innerHeight;
   renderer.setSize(iw, ih);
+  _canvasW = iw; _canvasH = ih;
   renderer.outputColorSpace    = THREE.SRGBColorSpace;
   renderer.toneMapping         = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.6;
@@ -348,6 +353,7 @@ export function initScene() {
   window.addEventListener('resize', () => {
     const rw = canvas.offsetWidth, rh = canvas.offsetHeight;
     if (!rw || !rh) return;
+    _canvasW = rw; _canvasH = rh;
     renderer.setSize(rw, rh);
     camera.aspect = rw / rh;
     camera.updateProjectionMatrix();
@@ -568,6 +574,7 @@ function renderLoop(now) {
   clock += delta;
   const lf = t => 1 - Math.pow(1 - t, delta / 0.01667);
   const idle = (now - _lastInteract) > 3000;
+  if (idle && _frameCount % 4 !== 0) return;
 
   if (scrollVel !== 0) {
     const toTarget = new THREE.Vector3().subVectors(camTarget, camPos).normalize();
@@ -599,8 +606,8 @@ function renderLoop(now) {
   }
 
   if (hotspots.length && renderer && _frameCount % 3 === 0) {
-    const W = renderer.domElement.offsetWidth;
-    const H = renderer.domElement.offsetHeight;
+    const W = _canvasW;
+    const H = _canvasH;
     hotspots.forEach(h => {
       if (h.mesh) h.mesh.getWorldPosition(_hotspotWorld);
       else _hotspotWorld.copy(h.worldPos);
@@ -615,7 +622,7 @@ function renderLoop(now) {
     });
   }
 
-  if (accentLight && _frameCount % 6 === 0) {
+  if (accentLight && _frameCount % 10 === 0) {
     const p = PRESETS[presetIdx];
     accentLight.intensity  = p.accent[1] * (0.85 + Math.sin(clock * 0.7) * 0.15);
     accentLight.position.x = -2 + Math.sin(clock * 0.35) * 0.4;
