@@ -107,6 +107,7 @@ function initCursorTrail() {
   const GAP = 100;
 
   document.addEventListener('mousemove', e => {
+    if (document.body.classList.contains('perf-lite')) return;
     const now = Date.now();
     if (now - lastT < GAP) return;
     lastT = now;
