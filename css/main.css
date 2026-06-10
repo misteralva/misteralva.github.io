@@ -30,7 +30,8 @@ body { background:var(--navy); color:var(--w); font-family:var(--fb); font-size:
 a { color:inherit; text-decoration:none }
 ul { list-style:none }
 button { font-family:var(--fb); background:none; border:none }
-* { cursor:none }
+* { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='21' viewBox='0 0 14 21'><path fill='%23000' d='M1,1 L1,17 L4.5,13 L7.3,19.5 L9.5,18.5 L6.7,12 L11.5,12 Z'/><path fill='%23fff' d='M2,3 L2,15.5 L5,12.2 L7.5,17.5 L8.5,17 L6,11.5 L10.5,11.5 Z'/></svg>") 1 1, default }
+a, button, [role=button], .di, .wb, .mb-item, label[for], .proj-card { cursor: pointer }
 .mono { font-family:var(--fm) }
 em { font-style:italic }
 :focus-visible { outline:2px solid var(--acc); outline-offset:3px }
@@ -39,9 +40,6 @@ a:focus:not(:focus-visible),button:focus:not(:focus-visible) { outline:none }
 #grain { position:fixed; inset:-100px; width:calc(100% + 200px); height:calc(100% + 200px); pointer-events:none; z-index:9990; opacity:.025; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size:512px 512px; animation:grain 8s steps(8) infinite }
 @keyframes grain { 0%{transform:translate(0,0)} 25%{transform:translate(-3%,5%)} 50%{transform:translate(4%,-8%)} 75%{transform:translate(-6%,3%)} 100%{transform:translate(0,0)} }
 
-#cur { position:fixed; left:0; top:0; width:6px; height:6px; background:#ffffff; border-radius:50%; pointer-events:none; z-index:10001; will-change:transform; transition:width .3s var(--ease),height .3s var(--ease),opacity .2s,border-radius .2s }
-body:not(:hover) #cur { opacity:0 }
-.cur-lg  #cur { width:44px; height:44px; background:transparent; border:1px solid #ffffff }
 
 #room-hint {
   position:absolute; bottom:96px; left:50%; transform:translateX(-50%);
@@ -1280,7 +1278,7 @@ body:not(:hover) #cur { opacity:0 }
 @media (pointer:coarse) {
 
   * { cursor:auto !important }
-  #cur, #trail { display:none !important }
+  #trail { display:none !important }
 
   .wb-r { background:var(--red) }
   .wb-y { background:var(--yel) }
@@ -1411,13 +1409,6 @@ body:not(:hover) #cur { opacity:0 }
   100% { transform: translate(-50%,-50%) scale(1);  opacity: 0 }
 }
 
-#cur.clicking {
-  width: 22px !important;
-  height: 22px !important;
-  opacity: .55 !important;
-  background: transparent !important;
-  border: 1.5px solid var(--acc) !important;
-}
 
 .win-title.scrambling {
   color: var(--acc) !important;
