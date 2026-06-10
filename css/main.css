@@ -459,13 +459,17 @@ a:focus:not(:focus-visible),button:focus:not(:focus-visible) { outline:none }
 .win-btns { display:flex; gap:7px; align-items:center }
 .wb {
   width:12px; height:12px; border-radius:50%;
-  background:rgba(255,255,255,.14);
-  transition:background .15s;
   flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  transition:filter .15s;
 }
-.win-chrome:hover .wb-r { background:var(--red) }
-.win-chrome:hover .wb-y { background:var(--yel) }
-.win-chrome:hover .wb-g { background:var(--grn) }
+.wb-r { background:var(--red) }
+.wb-y { background:var(--yel) }
+.wb-g { background:var(--grn) }
+.wb-r::after { content:'×' }
+.wb-y::after { content:'−' }
+.wb-g::after { content:'+' }
+.wb::after { font-size:8px; line-height:1; font-weight:800; color:rgba(0,0,0,.45); font-family:var(--fb) }
 .win-title {
   font-size:.58rem; letter-spacing:.16em; text-transform:lowercase;
   color:var(--dim); flex:1; text-align:center; margin:0 4px;
@@ -1270,9 +1274,6 @@ a:focus:not(:focus-visible),button:focus:not(:focus-visible) { outline:none }
 
   .pd-preview { display:none }
 
-  .wb-r { background:var(--red) !important }
-  .wb-y { background:var(--yel) !important }
-  .wb-g { background:var(--grn) !important }
 }
 
 @media (pointer:coarse) {
@@ -1280,11 +1281,8 @@ a:focus:not(:focus-visible),button:focus:not(:focus-visible) { outline:none }
   * { cursor:auto !important }
   #trail { display:none !important }
 
-  .wb-r { background:var(--red) }
-  .wb-y { background:var(--yel) }
-  .wb-g { background:var(--grn) }
 
-  
+
   .di-label { display:block !important }
   .di { gap:2px }
 
